@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://difd4nyo42xes"]
+
+[ext_resource type="Script" path="res://camera.gd" id="1_ydpgb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fqff8"]
+
+[node name="Camera" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 194.686, -485.333)
+script = ExtResource("1_ydpgb")
+
+[node name="CameraTarget" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraTarget"]
+shape = SubResource("CapsuleShape3D_fqff8")
+spring_length = -3.0
+margin = 0.02
+
+[node name="Camera3D" type="Camera3D" parent="CameraTarget/SpringArm3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
