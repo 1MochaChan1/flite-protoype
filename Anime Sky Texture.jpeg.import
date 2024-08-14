@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1dy636n7n5sr"
 path.s3tc="res://.godot/imported/Anime Sky Texture.jpeg-6b96938d9fbfc96720c080a4a5ef5fce.s3tc.ctex"
+path.etc2="res://.godot/imported/Anime Sky Texture.jpeg-6b96938d9fbfc96720c080a4a5ef5fce.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Anime Sky Texture.jpeg"
-dest_files=["res://.godot/imported/Anime Sky Texture.jpeg-6b96938d9fbfc96720c080a4a5ef5fce.s3tc.ctex"]
+dest_files=["res://.godot/imported/Anime Sky Texture.jpeg-6b96938d9fbfc96720c080a4a5ef5fce.s3tc.ctex", "res://.godot/imported/Anime Sky Texture.jpeg-6b96938d9fbfc96720c080a4a5ef5fce.etc2.ctex"]
 
 [params]
 
