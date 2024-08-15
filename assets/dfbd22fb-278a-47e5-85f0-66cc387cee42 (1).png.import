@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1qr05ib66de3"
-path.s3tc="res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-16b215d00879f18109ee38ed2bd27997.s3tc.ctex"
-path.etc2="res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-16b215d00879f18109ee38ed2bd27997.etc2.ctex"
+path.s3tc="res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-72b1569aec38e76b2229cc9e9387a0b0.s3tc.ctex"
+path.etc2="res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-72b1569aec38e76b2229cc9e9387a0b0.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png"
-dest_files=["res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-16b215d00879f18109ee38ed2bd27997.s3tc.ctex", "res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-16b215d00879f18109ee38ed2bd27997.etc2.ctex"]
+source_file="res://assets/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png"
+dest_files=["res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-72b1569aec38e76b2229cc9e9387a0b0.s3tc.ctex", "res://.godot/imported/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png-72b1569aec38e76b2229cc9e9387a0b0.etc2.ctex"]
 
 [params]
 

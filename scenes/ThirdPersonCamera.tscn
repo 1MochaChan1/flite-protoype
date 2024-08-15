@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://difd4nyo42xes"]
 
-[ext_resource type="Script" path="res://camera.gd" id="1_ydpgb"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_ydpgb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fqff8"]
 

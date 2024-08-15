@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3e8yvjqtj36u"]
+[gd_scene load_steps=13 format=3 uid="uid://urc4wu3taij5"]
 
-[ext_resource type="Script" path="res://plane_handler.gd" id="1_0aj0n"]
-[ext_resource type="Texture2D" uid="uid://c1qr05ib66de3" path="res://dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png" id="1_0q2mq"]
-[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://ThirdPersonCamera.tscn" id="2_xv5ey"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_jflp6"]
+[ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="1_vj5fs"]
+[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/ThirdPersonCamera.tscn" id="2_lew1m"]
+[ext_resource type="Script" path="res://scripts/Plane_Euler.gd" id="3_pv4x4"]
+[ext_resource type="PackedScene" uid="uid://ci8nwsxhgvvq5" path="res://scenes/mobile_input_test.tscn" id="5_jrpl3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
-panorama = ExtResource("1_0q2mq")
+panorama = ExtResource("1_vj5fs")
 
 [sub_resource type="Sky" id="Sky_6mfjr"]
 sky_material = SubResource("PanoramaSkyMaterial_6nhew")
@@ -15,17 +17,59 @@ background_mode = 2
 background_energy_multiplier = 0.5
 sky = SubResource("Sky_6mfjr")
 tonemap_mode = 3
+tonemap_white = 0.5
+fog_density = 0.0005
 fog_aerial_perspective = 1.0
-fog_sky_affect = 0.0
-volumetric_fog_density = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmee0"]
-albedo_color = Color(0.359069, 0.359069, 0.359069, 1)
+albedo_color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8pu7g"]
+albedo_color = Color(0.360784, 0.360784, 0.360784, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1oaw"]
+albedo_color = Color(0.41598, 0.41598, 0.41598, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qq6xe"]
 size = Vector3(1.0177, 0.112182, 0.536621)
 
 [node name="Test" type="Node3D"]
+script = ExtResource("1_jflp6")
+messages = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Joystick" parent="CanvasLayer/Control" instance=ExtResource("5_jrpl3")]
+position = Vector2(129, 508)
+
+[node name="Velocity" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Velocity: "
+
+[node name="Messages" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_top = 28.0
+offset_bottom = 51.0
+grow_horizontal = 0
+text = "Messages: "
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_x5jjv")
@@ -52,10 +96,12 @@ size = Vector3(142, 30, 138)
 
 [node name="CSGCombiner3D2" type="CSGCombiner3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_8pu7g")
 use_collision = true
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D2"]
-transform = Transform3D(1, 0, 0, 0, 2.6849, 0, 0, 0, 1, 39, 27.5569, -22)
+transform = Transform3D(1, 0, 0, 0, 2.6849, 0, 0, 0, 1, 21.8878, 27.5569, -17.5765)
+material_override = SubResource("StandardMaterial3D_b1oaw")
 radius = 2.0
 height = 20.0
 
@@ -274,62 +320,27 @@ transform = Transform3D(1, 0, 0, 0, 2.6849, 0, 0, 0, 1, -103.985, 27.5569, 100.2
 radius = 3.0
 height = 20.0
 
-[node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xv5ey")]
-follow_target = NodePath("../RigidBody3D")
+[node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("2_lew1m")]
+follow_target = NodePath("../Plane")
+pitch_sensi = 0.1
+yaw_sensi = 0.1
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.432, 1000, -1228.74)
+[node name="Plane" type="CharacterBody3D" parent="." groups=["Player"]]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 4.432, 459.978, -595.053)
+collision_mask = 5
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-continuous_cd = true
-linear_velocity = Vector3(0, 0, 30)
-script = ExtResource("1_0aj0n")
-base_speed = null
-dive_throttle = null
-max_horizontal_speed = 500.0
-max_vertical_speed = 700.0
-max_rise = null
+script = ExtResource("3_pv4x4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0458374, 0.268311)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.0458374, 0.26828)
 shape = SubResource("BoxShape3D_qq6xe")
 
-[node name="MeshContainer" type="Node3D" parent="RigidBody3D"]
+[node name="MeshContainer" type="Node3D" parent="Plane"]
 
-[node name="PlaneMesh" type="CSGPolygon3D" parent="RigidBody3D/MeshContainer"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -0.1, 0, 1, -4.37114e-09, 0, 0, 0)
+[node name="PlaneMesh" type="CSGPolygon3D" parent="Plane/MeshContainer"]
+transform = Transform3D(1, 2.98023e-08, 0, 0, -4.37114e-08, -0.1, -2.98023e-08, 1, -4.37114e-09, 0, 0, 0)
 polygon = PackedVector2Array(-0.00756028, 0.525761, -0.477587, -0.00791459, 0.511427, -0.00301842)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 92.2363, 0)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Velocity" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
-grow_horizontal = 0
-text = "Velocity: "
-
-[node name="State" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -70.0
-offset_top = 25.0
-offset_bottom = 48.0
-grow_horizontal = 0
-text = "Velocity: "

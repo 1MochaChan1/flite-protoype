@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+## Virtual joystick for mobile input.
+@export var v_joystick:Joystick
+## The max speed the plane can achieve when diving
 @export var MAX_SPEED:=80.0
 ## The speed that the plane will run on mostly
 @export var MIN_SPEED:=20.0
@@ -17,6 +20,7 @@ const _GRAVITY = 8
 
 
 @onready var _mesh_container = $MeshContainer
+
 
 var _fwd
 var _up
@@ -47,8 +51,12 @@ func _physics_process(delta):
 
 
 func _handle_input():
-	_pitch_input = Input.get_axis("ui_down", "ui_up")
-	_yaw_input = Input.get_axis("ui_right", "ui_left")
+	if(v_joystick):
+		_pitch_input = v_joystick.pos_vec.y
+		_yaw_input = -v_joystick.pos_vec.x
+	else:
+		_pitch_input = Input.get_axis("ui_down", "ui_up")
+		_yaw_input = Input.get_axis("ui_right", "ui_left")
 
 
 func _handle_physics(delta):
@@ -68,12 +76,11 @@ func _handle_physics(delta):
 	
 	velocity = _fwd * _current_speed 
 	move_and_slide()
-	print(velocity.length())
 
 
 func _handle_rotation(delta):
 	if (_yaw_input != 0):
-		_yaw += _yaw_input * _YAW_RATE
+		_yaw += _yaw_input 
 	else:
 		_yaw = lerpf(_yaw, 0, delta * _YAW_RATE)
 	_yaw = clamp(_yaw, -yaw_angle, yaw_angle)

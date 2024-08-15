@@ -18,7 +18,6 @@ var cam_target_basis:Basis
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	camera_3d.position.z = spring_arm_3d.spring_length
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera_target.global_position = follow_target.global_position
 
 
@@ -42,5 +41,8 @@ func handle_cam(delta):
 	camera_target.basis = cam_target_basis.orthonormalized()
 func _input(event):
 	if ((event is InputEventMouseMotion) and (Input.mouse_mode == Input.MOUSE_MODE_CAPTURED)):
+		yaw += -event.relative.x * yaw_sensi
+		pitch += event.relative.y * pitch_sensi
+	if(event  is InputEventScreenTouch):
 		yaw += -event.relative.x * yaw_sensi
 		pitch += event.relative.y * pitch_sensi

@@ -58,7 +58,6 @@ func apply_physics(delta):
 	var temp_max_vel = horizontal_vel.normalized() * max_horizontal_speed
 	if (linear_velocity.length() > max_horizontal_speed):
 		apply_impulse(-horizontal_vel.normalized() * 6)
-	print(rise_meter)
 
 func diving():
 	upward_dir = transform.basis.y
