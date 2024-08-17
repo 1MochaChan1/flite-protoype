@@ -50,8 +50,8 @@ func _physics_process(delta):
 
 
 func _handle_input():
-	if(v_joystick):
-		pass
+	
+	if(OS.get_model_name() != "GenericDevice"):
 		_pitch_input = v_joystick.output.y
 		_yaw_input = -v_joystick.output.x
 	else:
@@ -95,5 +95,11 @@ func _handle_animation():
 	_tween.tween_property(
 		_mesh_container, "rotation_degrees:z", -_yaw_input * 45, .5)
 	_tween.tween_property(
-		self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, .75)
+		self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, .5)
 	_tween.tween_property(self, 'rotation_degrees:y', _yaw, 0.2).as_relative()
+
+## Called by the wind_current
+func _move_in_wind_direction(dir:Vector3):
+	# TODO: Do quaternion vodoo here.
+	_current_speed *= 1.5
+	look_at(dir, Vector3.UP, true)

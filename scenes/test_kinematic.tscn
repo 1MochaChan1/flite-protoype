@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="1_vj5fs"]
 [ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/ThirdPersonCamera.tscn" id="2_lew1m"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_yc4do"]
-[ext_resource type="Script" path="res://scripts/Plane_Euler.gd" id="3_pv4x4"]
-[ext_resource type="Script" path="res://scripts/drop_point.gd" id="6_ocbtt"]
+[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_x5kdx"]
+[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="6_wxe64"]
+[ext_resource type="Script" path="res://scripts/wind_current.gd" id="7_egvt1"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
 panorama = ExtResource("1_vj5fs")
@@ -31,12 +32,9 @@ albedo_color = Color(0.360784, 0.360784, 0.360784, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1oaw"]
 albedo_color = Color(0.41598, 0.41598, 0.41598, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_qq6xe"]
-size = Vector3(1.0177, 0.112182, 0.536621)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_fu4lh"]
-height = 106.109
-radius = 21.9795
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wfhfe"]
+height = 56.6672
+radius = 16.8475
 
 [node name="Test" type="Node3D" node_paths=PackedStringArray("label")]
 script = ExtResource("1_jflp6")
@@ -346,42 +344,31 @@ pitch_sensi = 0.1
 yaw_sensi = 0.1
 v_joystick = NodePath("../CanvasLayer/Control/Camstick")
 
-[node name="Plane" type="CharacterBody3D" parent="." groups=["Player"]]
-transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 4.432, 459.978, -595.053)
-collision_mask = 5
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-script = ExtResource("3_pv4x4")
-MAX_SPEED = 150.0
-yaw_angle = 15
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane"]
-transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.0458374, 0.26828)
-shape = SubResource("BoxShape3D_qq6xe")
-
-[node name="MeshContainer" type="Node3D" parent="Plane"]
-
-[node name="PlaneMesh" type="CSGPolygon3D" parent="Plane/MeshContainer"]
-transform = Transform3D(1, 2.98023e-08, 0, 0, -4.37114e-08, -0.1, -2.98023e-08, 1, -4.37114e-09, 0, 0, 0)
-polygon = PackedVector2Array(-0.00756028, 0.525761, -0.477587, -0.00791459, 0.511427, -0.00301842)
+[node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_x5kdx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 480.077, -730.676)
+v_joystick = NodePath("../CanvasLayer/Control/Movestick")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 92.2363, 0)
 
-[node name="DropPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36.9062, 0)
-script = ExtResource("6_ocbtt")
+[node name="DropPoint" parent="." instance=ExtResource("6_wxe64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.3484, 0)
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="DropPoint"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0)
-radius = 14.614
-height = 82.493
+[node name="WindCurrent" type="Area3D" parent="."]
+transform = Transform3D(0.659136, 0.749542, 0.0610441, 0, 0.0811731, -0.9967, -0.752024, 0.656961, 0.0535041, -89.2932, 107.115, -96.0984)
+collision_layer = 16
+script = ExtResource("7_egvt1")
 
-[node name="Area3D" type="Area3D" parent="DropPoint"]
-collision_layer = 4
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WindCurrent"]
+shape = SubResource("CylinderShape3D_wfhfe")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DropPoint/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 37.5512, 0)
-shape = SubResource("CylinderShape3D_fu4lh")
+[node name="Marker3D" type="Marker3D" parent="WindCurrent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0216522, 30.7059, -0.0236282)
+gizmo_extents = 9.59
 
-[connection signal="body_entered" from="DropPoint/Area3D" to="DropPoint" method="_on_area_3d_body_entered"]
+[node name="CSGBox3D" type="CSGBox3D" parent="WindCurrent"]
+transform = Transform3D(1, 2.98023e-08, 0, 2.98023e-08, 1, 0, -8.56817e-08, 3.72529e-09, 1, -0.143177, -0.919952, 6.10352e-05)
+size = Vector3(33.8748, 54.8382, 1)
+
+[connection signal="body_entered" from="WindCurrent" to="WindCurrent" method="_on_body_entered"]
+[connection signal="body_exited" from="WindCurrent" to="WindCurrent" method="_on_body_exited"]

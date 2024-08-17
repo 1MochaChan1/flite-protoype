@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0s6fuhehlqdg"]
+
+[ext_resource type="Script" path="res://scripts/Plane_Euler.gd" id="1_2nbnj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qq6xe"]
+size = Vector3(1.0177, 0.112182, 0.536621)
+
+[node name="Plane" type="CharacterBody3D" groups=["Player"]]
+collision_mask = 14
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_2nbnj")
+MAX_SPEED = 150.0
+yaw_angle = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.0458374, 0.26828)
+shape = SubResource("BoxShape3D_qq6xe")
+
+[node name="MeshContainer" type="Node3D" parent="."]
+
+[node name="PlaneMesh" type="CSGPolygon3D" parent="MeshContainer"]
+transform = Transform3D(1, 2.98023e-08, 0, 0, -4.37114e-08, -0.1, -2.98023e-08, 1, -4.37114e-09, 0, 0, 0)
+polygon = PackedVector2Array(-0.00756028, 0.525761, -0.477587, -0.00791459, 0.511427, -0.00301842)

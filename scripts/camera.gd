@@ -27,7 +27,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	if(v_joystick):
+	if(OS.get_model_name() != "GenericDevice"):
 		_handle_joystick_input()
 	handle_cam(delta)
 
@@ -49,9 +49,6 @@ func handle_cam(delta):
 		
 		spring_arm_3d.rotation_degrees.x = lerpf(
 		spring_arm_3d.rotation_degrees.x, 0, delta * 0.1)
-	
-	print(moving)
-	print(spring_arm_3d.rotation_degrees)
 	
 	
 	camera_target.global_position = follow_target.global_position
