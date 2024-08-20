@@ -95,7 +95,7 @@ func _handle_animation():
 	_tween.tween_property(
 		_mesh_container, "rotation_degrees:z", -_yaw_input * 45, .5)
 	_tween.tween_property(
-		self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, .85)
+		self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, .75)
 	_tween.tween_property(self, 'rotation_degrees:y', _yaw, 0.2).as_relative()
 
 ## Called by the wind_current

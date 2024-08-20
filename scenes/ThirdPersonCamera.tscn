@@ -5,7 +5,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fqff8"]
 
 [node name="Camera" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 194.686, -485.333)
 script = ExtResource("1_ydpgb")
 
 [node name="CameraTarget" type="Node3D" parent="."]
