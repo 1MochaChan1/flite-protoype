@@ -9,7 +9,7 @@ class_name Player extends CharacterBody3D
 
 @export_category("Orientation")
 ## In Degrees
-@export var max_pitch_angle:=65
+@export var max_pitch_angle:=75
 
 @export_category("Rate")
 ## How much the plane turns per seconds
@@ -95,7 +95,7 @@ func _handle_animation():
 	_tween.tween_property(
 		_mesh_container, "rotation_degrees:z", -_yaw_input * 45, .5)
 	_tween.tween_property(
-		self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, .5)
+		self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, .85)
 	_tween.tween_property(self, 'rotation_degrees:y', _yaw, 0.2).as_relative()
 
 ## Called by the wind_current

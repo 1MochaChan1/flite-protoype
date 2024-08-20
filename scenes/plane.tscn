@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0s6fuhehlqdg"]
+[gd_scene load_steps=4 format=3 uid="uid://c0s6fuhehlqdg"]
 
 [ext_resource type="Script" path="res://scripts/Plane_Euler.gd" id="1_2nbnj"]
+[ext_resource type="ArrayMesh" uid="uid://dnh0m6roajbw3" path="res://blender_meshes/plane.tres" id="2_xtbjo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qq6xe"]
 size = Vector3(1.0177, 0.112182, 0.536621)
@@ -21,4 +22,9 @@ shape = SubResource("BoxShape3D_qq6xe")
 
 [node name="PlaneMesh" type="CSGPolygon3D" parent="MeshContainer"]
 transform = Transform3D(1, 2.98023e-08, 0, 0, -4.37114e-08, -0.1, -2.98023e-08, 1, -4.37114e-09, 0, 0, 0)
+visible = false
 polygon = PackedVector2Array(-0.00756028, 0.525761, -0.477587, -0.00791459, 0.511427, -0.00301842)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshContainer"]
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0.220902)
+mesh = ExtResource("2_xtbjo")
