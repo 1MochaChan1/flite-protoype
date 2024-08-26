@@ -51,12 +51,13 @@ func handle_cam(delta):
 	if(not is_moving):
 		if(reset_timer.is_stopped() and not is_resetting):
 			reset_timer.start()
-	if(is_resetting):
-		spring_arm_3d.rotation_degrees.y = lerpf(
-			spring_arm_3d.rotation_degrees.y, 0, 2.5*delta)
-	
-		spring_arm_3d.rotation_degrees.x = lerpf(
-			spring_arm_3d.rotation_degrees.x, 0, 2.5*delta)
+		
+		if(is_resetting):
+			spring_arm_3d.rotation_degrees.y = lerpf(
+				spring_arm_3d.rotation_degrees.y, 0, 2.5*delta)
+		
+			spring_arm_3d.rotation_degrees.x = lerpf(
+				spring_arm_3d.rotation_degrees.x, 0, 2.5*delta)
 	
 	camera_target.global_position = follow_target.global_position
 	
@@ -84,7 +85,7 @@ func _handle_mouse_input():
 
 func _input(event):
 	if ((event is InputEventMouseMotion) and \
-	(OS.get_model_name() != "GenericDevice")):
+	(OS.get_model_name() == "GenericDevice")):
 		yaw += -event.relative.x * yaw_sensi
 		pitch += event.relative.y * pitch_sensi
 

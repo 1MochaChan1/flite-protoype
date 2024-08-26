@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://urc4wu3taij5"]
+[gd_scene load_steps=14 format=3 uid="uid://urc4wu3taij5"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_jflp6"]
 [ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="1_vj5fs"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_x5kdx"]
 [ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="6_wxe64"]
 [ext_resource type="Script" path="res://scripts/wind_current.gd" id="7_egvt1"]
-[ext_resource type="PackedScene" uid="uid://i24aeuwscnm2" path="res://blender_meshes/map.blend" id="8_jyoj7"]
+[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="8_t5eh0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
 panorama = ExtResource("1_vj5fs")
@@ -28,6 +28,8 @@ fog_aerial_perspective = 1.0
 height = 56.6672
 radius = 16.8475
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_783db"]
+
 [node name="Test" type="Node3D" node_paths=PackedStringArray("label")]
 script = ExtResource("1_jflp6")
 messages = 3
@@ -42,20 +44,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Movestick" parent="CanvasLayer/Control" instance=ExtResource("2_yc4do")]
-layout_mode = 1
-deadzone_size = 50.0
-clampzone_size = 100.0
-use_input_actions = false
-
-[node name="Camstick" parent="CanvasLayer/Control" instance=ExtResource("2_yc4do")]
-layout_mode = 1
-offset_left = 848.0
-offset_right = 1148.0
-deadzone_size = 50.0
-clampzone_size = 100.0
-use_input_actions = false
 
 [node name="Velocity" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -81,21 +69,43 @@ offset_bottom = 74.0
 grow_horizontal = 0
 text = "Messages: "
 
+[node name="Lookstick" parent="CanvasLayer/Control" instance=ExtResource("2_yc4do")]
+layout_mode = 1
+offset_left = 853.0
+offset_right = 1153.0
+visibility_mode = 1
+
+[node name="Movestick" parent="CanvasLayer/Control" instance=ExtResource("2_yc4do")]
+layout_mode = 1
+offset_top = -457.0
+offset_right = 423.0
+pivot_offset = Vector2(215, 230)
+joystick_mode = 1
+visibility_mode = 1
+
+[node name="Base" parent="CanvasLayer/Control/Movestick" index="0"]
+offset_left = -265.5
+offset_top = -265.5
+offset_right = 259.5
+offset_bottom = 259.5
+pivot_offset = Vector2(265, 265)
+metadata/_edit_group_ = true
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_x5jjv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0.000619715, -0.000357793, 0.00071557, -0.862743, 0.505642, 4.6708e-06, -0.505643, -0.862743, 0, 665.828, 367.095)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 518.447, 0)
 shadow_enabled = true
 
 [node name="Camera" parent="." node_paths=PackedStringArray("follow_target", "v_joystick") instance=ExtResource("2_lew1m")]
 follow_target = NodePath("../Plane")
 pitch_sensi = 0.1
 yaw_sensi = 0.1
-v_joystick = NodePath("../CanvasLayer/Control/Camstick")
+v_joystick = NodePath("../CanvasLayer/Control/Lookstick")
 
 [node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_x5kdx")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2659.44, 2888.7, -17.4245)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2659.44, 411.587, -17.4245)
 v_joystick = NodePath("../CanvasLayer/Control/Movestick")
 MAX_SPEED = 500.0
 MIN_SPEED = 100.0
@@ -122,8 +132,13 @@ gizmo_extents = 9.59
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="WindCurrent"]
 polygon = PackedVector2Array(-21.9177, -27.3678, -1.76277, 29.6008, 1.86141, 29.6234, 18.4323, -27.541)
 
-[node name="map" parent="." instance=ExtResource("8_jyoj7")]
-transform = Transform3D(70, 0, 0, 0, 70, 0, 0, 0, 70, -105.813, 22.5, -230.837)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_783db")
+
+[node name="Terrain" parent="." instance=ExtResource("8_t5eh0")]
+transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 
 [connection signal="body_entered" from="WindCurrent" to="WindCurrent" method="_on_body_entered"]
 [connection signal="body_exited" from="WindCurrent" to="WindCurrent" method="_on_body_exited"]
+
+[editable path="CanvasLayer/Control/Movestick"]

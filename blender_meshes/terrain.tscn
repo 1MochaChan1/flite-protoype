@@ -1,0 +1,110 @@
+[gd_scene load_steps=26 format=3 uid="uid://b3qmxxr8mrplw"]
+
+[ext_resource type="PackedScene" uid="uid://5yulynkby166" path="res://blender_meshes/test_map.glb" id="1_lw1hc"]
+[ext_resource type="Texture2D" uid="uid://durb53376r8ld" path="res://blender_meshes/Diffuse_Grass.png" id="2_l3ol1"]
+[ext_resource type="Texture2D" uid="uid://d2evpybrlyacs" path="res://blender_meshes/Diffuse_Rocks.png" id="3_vna4v"]
+[ext_resource type="Texture2D" uid="uid://u3x4suswjci7" path="res://blender_meshes/Diffuse_Gravel.png" id="4_e46g3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4voff"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x74li"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2eej"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0d46"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qcls"]
+albedo_texture = ExtResource("4_e46g3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lo5o1"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gthi"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40w5k"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53vdq"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8xoy"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_su1hl"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16h4p"]
+albedo_texture = ExtResource("4_e46g3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c2pc2"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fm5hs"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k02cf"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7081o"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_01iyb"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k5mda"]
+albedo_texture = ExtResource("3_vna4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nlxqh"]
+albedo_texture = ExtResource("4_e46g3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k38xh"]
+albedo_texture = ExtResource("2_l3ol1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0436o"]
+albedo_texture = ExtResource("3_vna4v")
+
+[node name="Terrain" instance=ExtResource("1_lw1hc")]
+
+[node name="Plane_003" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4voff")
+surface_material_override/1 = SubResource("StandardMaterial3D_x74li")
+
+[node name="Plane_004" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_u2eej")
+surface_material_override/1 = SubResource("StandardMaterial3D_f0d46")
+surface_material_override/2 = SubResource("StandardMaterial3D_2qcls")
+
+[node name="Plane_005" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_lo5o1")
+surface_material_override/1 = SubResource("StandardMaterial3D_7gthi")
+
+[node name="Plane_006" parent="." index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_40w5k")
+surface_material_override/1 = SubResource("StandardMaterial3D_53vdq")
+
+[node name="Plane_007" parent="." index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_w8xoy")
+surface_material_override/1 = SubResource("StandardMaterial3D_su1hl")
+surface_material_override/2 = SubResource("StandardMaterial3D_16h4p")
+
+[node name="Plane_008" parent="." index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_c2pc2")
+surface_material_override/1 = SubResource("StandardMaterial3D_fm5hs")
+
+[node name="Plane_009" parent="." index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_k02cf")
+surface_material_override/1 = SubResource("StandardMaterial3D_7081o")
+
+[node name="Plane_010" parent="." index="7"]
+surface_material_override/0 = SubResource("StandardMaterial3D_01iyb")
+surface_material_override/1 = SubResource("StandardMaterial3D_k5mda")
+surface_material_override/2 = SubResource("StandardMaterial3D_nlxqh")
+
+[node name="Plane_011" parent="." index="8"]
+surface_material_override/0 = SubResource("StandardMaterial3D_k38xh")
+surface_material_override/1 = SubResource("StandardMaterial3D_0436o")
