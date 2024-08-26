@@ -1,28 +1,31 @@
-extends Node3D
+extends Node
 
-@export var messages:=0
-@export var label:Label
+# Can change scene
+# Responsible for saving game files
 
-var current_messgaes:int
-var player:CharacterBody3D
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	label.text += ": "+str(messages) 
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	player = get_tree().get_nodes_in_group('Player')[0]
-	if(player is Player):
-		player.message_dropped.connect(update_message_count)
+var _level:PackedScene
+var curr_level:CustomScene
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if(Input.is_action_just_pressed("ui_cancel") 
-		and (Input.mouse_mode == Input.MOUSE_MODE_CAPTURED)):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	elif (Input.is_action_just_pressed("ui_cancel") 
-		and (Input.mouse_mode == Input.MOUSE_MODE_VISIBLE)):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+func _ready() -> void:
+	_level = preload("res://scenes/menu.tscn")
+	curr_level = _level.instantiate()
+	add_child(curr_level)
+	curr_level.call_scene_change.connect(load_level)
+	
 
-func update_message_count():
-	messages -= 1
-	label.text = "Messages: "+str(messages) 
+func unload_level():
+	if(is_instance_valid(curr_level)):
+		curr_level.queue_free()
+	curr_level = null
+
+func load_level(next_scene:StringName):
+	unload_level()
+	var _path:= "res://scenes/%s.tscn" % next_scene
+	_level = load(_path)
+	if(_level):
+		curr_level = _level.instantiate()
+		add_child(curr_level)
+		curr_level.call_scene_change.connect(load_level)
+		
+	

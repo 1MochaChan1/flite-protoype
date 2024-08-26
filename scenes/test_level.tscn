@@ -1,16 +1,16 @@
 [gd_scene load_steps=14 format=3 uid="uid://urc4wu3taij5"]
 
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_jflp6"]
-[ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="1_vj5fs"]
-[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/ThirdPersonCamera.tscn" id="2_lew1m"]
-[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_yc4do"]
-[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_x5kdx"]
-[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="6_wxe64"]
-[ext_resource type="Script" path="res://scripts/wind_current.gd" id="7_egvt1"]
-[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="8_t5eh0"]
+[ext_resource type="Script" path="res://scripts/test_level.gd" id="1_yr0ih"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_7vfi6"]
+[ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="3_3y6xs"]
+[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/third_person_controller.tscn" id="4_lswvb"]
+[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_lf72v"]
+[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="6_77um1"]
+[ext_resource type="Script" path="res://scripts/wind_current.gd" id="7_x0foo"]
+[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="8_x2cpq"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
-panorama = ExtResource("1_vj5fs")
+panorama = ExtResource("3_3y6xs")
 
 [sub_resource type="Sky" id="Sky_6mfjr"]
 sky_material = SubResource("PanoramaSkyMaterial_6nhew")
@@ -30,8 +30,8 @@ radius = 16.8475
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_783db"]
 
-[node name="Test" type="Node3D" node_paths=PackedStringArray("label")]
-script = ExtResource("1_jflp6")
+[node name="TestLevel" type="Node3D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_yr0ih")
 messages = 3
 label = NodePath("CanvasLayer/Control/Messages")
 
@@ -69,13 +69,13 @@ offset_bottom = 74.0
 grow_horizontal = 0
 text = "Messages: "
 
-[node name="Lookstick" parent="CanvasLayer/Control" instance=ExtResource("2_yc4do")]
+[node name="Lookstick" parent="CanvasLayer/Control" instance=ExtResource("2_7vfi6")]
 layout_mode = 1
 offset_left = 853.0
 offset_right = 1153.0
 visibility_mode = 1
 
-[node name="Movestick" parent="CanvasLayer/Control" instance=ExtResource("2_yc4do")]
+[node name="Movestick" parent="CanvasLayer/Control" instance=ExtResource("2_7vfi6")]
 layout_mode = 1
 offset_top = -457.0
 offset_right = 423.0
@@ -98,13 +98,13 @@ environment = SubResource("Environment_x5jjv")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 518.447, 0)
 shadow_enabled = true
 
-[node name="Camera" parent="." node_paths=PackedStringArray("follow_target", "v_joystick") instance=ExtResource("2_lew1m")]
+[node name="Camera" parent="." node_paths=PackedStringArray("follow_target", "v_joystick") instance=ExtResource("4_lswvb")]
 follow_target = NodePath("../Plane")
 pitch_sensi = 0.1
 yaw_sensi = 0.1
 v_joystick = NodePath("../CanvasLayer/Control/Lookstick")
 
-[node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_x5kdx")]
+[node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_lf72v")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2659.44, 411.587, -17.4245)
 v_joystick = NodePath("../CanvasLayer/Control/Movestick")
 MAX_SPEED = 500.0
@@ -114,13 +114,13 @@ yaw_angle = 20
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 92.2363, 0)
 
-[node name="DropPoint" parent="." instance=ExtResource("6_wxe64")]
+[node name="DropPoint" parent="." instance=ExtResource("6_77um1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.3484, 0)
 
 [node name="WindCurrent" type="Area3D" parent="."]
 transform = Transform3D(0.659136, 0.749542, 0.0610441, 0, 0.0811731, -0.9967, -0.752024, 0.656961, 0.0535041, -89.2932, 107.115, -96.0984)
 collision_layer = 16
-script = ExtResource("7_egvt1")
+script = ExtResource("7_x0foo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WindCurrent"]
 shape = SubResource("CylinderShape3D_wfhfe")
@@ -135,7 +135,7 @@ polygon = PackedVector2Array(-21.9177, -27.3678, -1.76277, 29.6008, 1.86141, 29.
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_783db")
 
-[node name="Terrain" parent="." instance=ExtResource("8_t5eh0")]
+[node name="Terrain" parent="." instance=ExtResource("8_x2cpq")]
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 
 [connection signal="body_entered" from="WindCurrent" to="WindCurrent" method="_on_body_entered"]

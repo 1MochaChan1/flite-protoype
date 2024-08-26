@@ -29,7 +29,6 @@ var _rt
 var _pitch_input:=.0
 var _yaw_input:=.0
 var _yaw:=.0
-var _pit:=.0
 var _tween:Tween
 var _current_speed:=.0
 
