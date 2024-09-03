@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SaveGame" load_steps=2 format=3 uid="uid://l4cc6ocngnja"]
+
+[ext_resource type="Script" path="res://scripts/save_game.gd" id="1_3ewlj"]
+
+[resource]
+script = ExtResource("1_3ewlj")
+level_stats = {
+"level_forest1": 0,
+"level_forest2": 0,
+"level_forest3": 0,
+"level_forest4": 0,
+"level_forest5": 0
+}

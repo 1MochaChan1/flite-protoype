@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp6b74emxjud3"]
+
+[ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="1_kpof7"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
+panorama = ExtResource("1_kpof7")
+
+[sub_resource type="Sky" id="Sky_6mfjr"]
+sky_material = SubResource("PanoramaSkyMaterial_6nhew")
+
+[sub_resource type="Environment" id="Environment_x5jjv"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_6mfjr")
+tonemap_mode = 3
+tonemap_white = 0.5
+fog_density = 0.0005
+fog_aerial_perspective = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_x5jjv")

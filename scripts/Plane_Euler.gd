@@ -3,9 +3,9 @@ class_name Player extends CharacterBody3D
 ## Virtual joystick for mobile input.
 @export var v_joystick:VirtualJoystick
 ## The max speed the plane can achieve when diving
-@export var MAX_SPEED:=80.0
+@export var MAX_SPEED:=700.0
 ## The speed that the plane will run on mostly
-@export var MIN_SPEED:=20.0
+@export var MIN_SPEED:=50.0
 
 @export_category("Orientation")
 ## In Degrees
@@ -13,7 +13,7 @@ class_name Player extends CharacterBody3D
 
 @export_category("Rate")
 ## How much the plane turns per seconds
-@export var yaw_angle:=25
+@export var yaw_angle:=20
 
 const _YAW_RATE = 4
 const _GRAVITY = 12
@@ -23,16 +23,16 @@ const _GRAVITY = 12
 
 
 var _fwd
-var _up
-var _rt
 
 var _pitch_input:=.0
 var _yaw_input:=.0
 var _yaw:=.0
 var _tween:Tween
 var _current_speed:=.0
+var is_in_control:=true
 
 signal message_dropped
+signal crashed
 
 func _ready():
 	_current_speed = MIN_SPEED
@@ -40,12 +40,13 @@ func _ready():
 
 
 func _physics_process(delta):
-
+	if(not is_in_control):
+		return
 	_handle_input()
 	_handle_rotation(delta)
 	_handle_animation()
 	_handle_physics(delta)
-	$"../CanvasLayer/Control/Velocity".text = str(velocity)
+	#$"../CanvasLayer/Control/Velocity".text = str(velocity)
 
 
 func _handle_input():
@@ -59,10 +60,7 @@ func _handle_input():
 
 
 func _handle_physics(delta):
-	
 	_fwd=basis.z
-	_up=basis.y
-	_rt=basis.x
 	
 	if(_pitch_input != 0):
 		_current_speed = lerp(
@@ -97,8 +95,14 @@ func _handle_animation():
 		self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, .75)
 	_tween.tween_property(self, 'rotation_degrees:y', _yaw, 0.2).as_relative()
 
+
 ## Called by the wind_current
 func _move_in_wind_direction(dir:Vector3):
 	# TODO: Do quaternion vodoo here.
 	_current_speed *= 1.5
 	look_at(dir, Vector3.UP, true)
+
+
+func _on_hurtbox_body_entered(body: Node3D) -> void:
+	if(is_in_control):
+		crashed.emit()

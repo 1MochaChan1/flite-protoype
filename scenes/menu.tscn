@@ -4,6 +4,7 @@
 
 [node name="Menu" type="Node3D"]
 script = ExtResource("1_nboci")
+is_level = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

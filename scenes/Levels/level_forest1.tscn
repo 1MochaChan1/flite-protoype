@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=3 uid="uid://beq856myrb21i"]
+
+[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="1_pc4oe"]
+[ext_resource type="Script" path="res://scripts/level_forest_1.gd" id="1_v025j"]
+[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="2_5o06y"]
+[ext_resource type="PackedScene" uid="uid://bcep5k62bj3f7" path="res://scenes/control_hud.tscn" id="4_indaf"]
+[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_xvxpt"]
+[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/third_person_camera.tscn" id="6_5vi3l"]
+[ext_resource type="PackedScene" uid="uid://dp6b74emxjud3" path="res://scenes/Lighting/forest_level_lighting.tscn" id="7_jingi"]
+
+[sub_resource type="Gradient" id="Gradient_u01uq"]
+colors = PackedColorArray(0.270222, 0.270222, 0.270222, 0.74902, 0, 0, 0, 0.462745)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nhp7w"]
+gradient = SubResource("Gradient_u01uq")
+fill = 1
+fill_from = Vector2(0.5, 0.418803)
+fill_to = Vector2(0.230769, 0)
+
+[node name="level_forest1" type="Node3D" node_paths=PackedStringArray("menus", "btn_restart", "btn_main_menu", "btn_next_level", "label")]
+script = ExtResource("1_v025j")
+menus = NodePath("Menus")
+btn_restart = NodePath("Menus/Control/VBoxContainer/Restart")
+btn_main_menu = NodePath("Menus/Control/VBoxContainer/Main Menu")
+btn_next_level = NodePath("Menus/Control/VBoxContainer/Next Level")
+messages = 3
+label = NodePath("Hud/Control/Messages")
+one_star = 50
+two_star = 40
+three_star = 20
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="Hud" instance=ExtResource("4_indaf")]
+
+[node name="Menus" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+
+[node name="Control" type="Control" parent="Menus"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menus/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_nhp7w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/Control"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Restart" type="Button" parent="Menus/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Restart"
+
+[node name="Next Level" type="Button" parent="Menus/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Next Level"
+
+[node name="Main Menu" type="Button" parent="Menus/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Main Menu"
+
+[node name="Terrain" parent="." instance=ExtResource("1_pc4oe")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="Drops" type="Node" parent="."]
+
+[node name="DropPoint" parent="Drops" instance=ExtResource("2_5o06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 195.623, 49.6178, -186.627)
+
+[node name="DropPoint2" parent="Drops" instance=ExtResource("2_5o06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 225.171, 49.6179, -123.596)
+
+[node name="DropPoint3" parent="Drops" instance=ExtResource("2_5o06y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 215.661, 49.6178, -28.722)
+
+[node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_xvxpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 155.005, 0)
+v_joystick = NodePath("../Hud/Control/Movestick")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("v_joystick", "follow_target") instance=ExtResource("6_5vi3l")]
+v_joystick = NodePath("../Hud/Control/Lookstick")
+follow_target = NodePath("../Plane")
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("7_jingi")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.425779, -0.896668, 0.121234, 0, 0.133986, 0.990983, -0.904827, 0.42194, -0.0570485, 0, 229.664, 0)
+light_energy = 0.8
+shadow_enabled = true
+
+[editable path="Hud/Control"]
+[editable path="Hud/Control/Movestick"]

@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdcak4b1mv611"]
+
+[ext_resource type="Script" path="res://scripts/level_forest_1.gd" id="1_fqt3h"]
+[ext_resource type="PackedScene" uid="uid://bcep5k62bj3f7" path="res://scenes/control_hud.tscn" id="2_hhdu0"]
+[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="3_sity0"]
+[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="4_87b5x"]
+[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_rcf2k"]
+[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/third_person_camera.tscn" id="6_wqtjd"]
+[ext_resource type="PackedScene" uid="uid://dp6b74emxjud3" path="res://scenes/Lighting/forest_level_lighting.tscn" id="7_qqqyf"]
+
+[node name="LevelForest1" type="Node3D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_fqt3h")
+messages = 3
+label = NodePath("CanvasLayer/Control/Messages")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("2_hhdu0")]
+
+[node name="Terrain" parent="." instance=ExtResource("3_sity0")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="Drops" type="Node" parent="."]
+
+[node name="DropPoint" parent="Drops" instance=ExtResource("4_87b5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1184.2, 477.153, -1073.64)
+
+[node name="DropPoint2" parent="Drops" instance=ExtResource("4_87b5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 176.79, -18.4389, -1546.31)
+
+[node name="DropPoint3" parent="Drops" instance=ExtResource("4_87b5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1267.22, 113.729, 1161.87)
+
+[node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_rcf2k")]
+v_joystick = NodePath("../CanvasLayer/Control/Movestick")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("v_joystick", "follow_target") instance=ExtResource("6_wqtjd")]
+v_joystick = NodePath("../CanvasLayer/Control/Lookstick")
+follow_target = NodePath("../Plane")
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("7_qqqyf")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.425779, -0.896668, 0.121234, 0, 0.133986, 0.990983, -0.904827, 0.42194, -0.0570485, 0, 229.664, 0)
+light_energy = 0.8
+shadow_enabled = true
+
+[editable path="CanvasLayer/Control"]
+[editable path="CanvasLayer/Control/Movestick"]

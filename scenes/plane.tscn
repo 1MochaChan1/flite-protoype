@@ -1,22 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0s6fuhehlqdg"]
+[gd_scene load_steps=5 format=3 uid="uid://c0s6fuhehlqdg"]
 
 [ext_resource type="Script" path="res://scripts/Plane_Euler.gd" id="1_2nbnj"]
 [ext_resource type="ArrayMesh" uid="uid://dnh0m6roajbw3" path="res://blender_meshes/plane.tres" id="2_xtbjo"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qfdru"]
+size = Vector3(0.396667, 0.964798, 0.114502)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_qq6xe"]
-size = Vector3(1.0177, 0.112182, 0.536621)
+size = Vector3(0.59079, 0.158806, 1.03456)
 
 [node name="Plane" type="CharacterBody3D" groups=["Player"]]
 collision_mask = 14
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_2nbnj")
-MAX_SPEED = 150.0
-yaw_angle = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.0458374, 0.26828)
-shape = SubResource("BoxShape3D_qq6xe")
+transform = Transform3D(1, 0, 2.98023e-08, 2.98023e-08, -4.37114e-08, -1, 1.3027e-15, 1, -4.37114e-08, -0.00772095, -0.0148316, 0.161415)
+shape = SubResource("BoxShape3D_qfdru")
 
 [node name="MeshContainer" type="Node3D" parent="."]
 
@@ -28,3 +29,12 @@ polygon = PackedVector2Array(-0.00756028, 0.525761, -0.477587, -0.00791459, 0.51
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshContainer"]
 transform = Transform3D(-5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0.220902)
 mesh = ExtResource("2_xtbjo")
+
+[node name="Hurtbox" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.00135806, -0.0286143, 0.171379)
+shape = SubResource("BoxShape3D_qq6xe")
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

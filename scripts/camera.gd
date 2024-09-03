@@ -1,11 +1,11 @@
 extends Node3D
 
+@export var v_joystick:VirtualJoystick
 @export var follow_target:Node3D
 @export var pitch_min:float = -50
 @export var pitch_max:float = 50
-@export var pitch_sensi = 0.002
-@export var yaw_sensi = 0.002
-@export var v_joystick:VirtualJoystick
+@export var pitch_sensi = 0.1
+@export var yaw_sensi = 0.1
 
 
 @onready var spring_arm_3d = $CameraTarget/SpringArm3D
@@ -84,10 +84,11 @@ func _handle_mouse_input():
 		is_moving = false
 
 func _input(event):
-	if ((event is InputEventMouseMotion) and \
-	(OS.get_model_name() == "GenericDevice")):
-		yaw += -event.relative.x * yaw_sensi
-		pitch += event.relative.y * pitch_sensi
+	if(Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
+		if ((event is InputEventMouseMotion) and \
+		(OS.get_model_name() == "GenericDevice")):
+			yaw += -event.relative.x * yaw_sensi
+			pitch += event.relative.y * pitch_sensi
 
 
 func _on_reset_timer_timeout() -> void:

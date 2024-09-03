@@ -74,37 +74,64 @@ albedo_texture = ExtResource("3_vna4v")
 surface_material_override/0 = SubResource("StandardMaterial3D_4voff")
 surface_material_override/1 = SubResource("StandardMaterial3D_x74li")
 
+[node name="StaticBody3D" parent="Plane_003" index="0"]
+collision_layer = 2
+
 [node name="Plane_004" parent="." index="1"]
 surface_material_override/0 = SubResource("StandardMaterial3D_u2eej")
 surface_material_override/1 = SubResource("StandardMaterial3D_f0d46")
 surface_material_override/2 = SubResource("StandardMaterial3D_2qcls")
 
+[node name="StaticBody3D" parent="Plane_004" index="0"]
+collision_layer = 2
+
 [node name="Plane_005" parent="." index="2"]
 surface_material_override/0 = SubResource("StandardMaterial3D_lo5o1")
 surface_material_override/1 = SubResource("StandardMaterial3D_7gthi")
 
+[node name="StaticBody3D" parent="Plane_005" index="0"]
+collision_layer = 2
+
 [node name="Plane_006" parent="." index="3"]
 surface_material_override/0 = SubResource("StandardMaterial3D_40w5k")
 surface_material_override/1 = SubResource("StandardMaterial3D_53vdq")
+
+[node name="StaticBody3D" parent="Plane_006" index="0"]
+collision_layer = 2
 
 [node name="Plane_007" parent="." index="4"]
 surface_material_override/0 = SubResource("StandardMaterial3D_w8xoy")
 surface_material_override/1 = SubResource("StandardMaterial3D_su1hl")
 surface_material_override/2 = SubResource("StandardMaterial3D_16h4p")
 
+[node name="StaticBody3D" parent="Plane_007" index="0"]
+collision_layer = 2
+
 [node name="Plane_008" parent="." index="5"]
 surface_material_override/0 = SubResource("StandardMaterial3D_c2pc2")
 surface_material_override/1 = SubResource("StandardMaterial3D_fm5hs")
 
+[node name="StaticBody3D" parent="Plane_008" index="0"]
+collision_layer = 2
+
 [node name="Plane_009" parent="." index="6"]
 surface_material_override/0 = SubResource("StandardMaterial3D_k02cf")
 surface_material_override/1 = SubResource("StandardMaterial3D_7081o")
+
+[node name="StaticBody3D" parent="Plane_009" index="0"]
+collision_layer = 2
 
 [node name="Plane_010" parent="." index="7"]
 surface_material_override/0 = SubResource("StandardMaterial3D_01iyb")
 surface_material_override/1 = SubResource("StandardMaterial3D_k5mda")
 surface_material_override/2 = SubResource("StandardMaterial3D_nlxqh")
 
+[node name="StaticBody3D" parent="Plane_010" index="0"]
+collision_layer = 2
+
 [node name="Plane_011" parent="." index="8"]
 surface_material_override/0 = SubResource("StandardMaterial3D_k38xh")
 surface_material_override/1 = SubResource("StandardMaterial3D_0436o")
+
+[node name="StaticBody3D" parent="Plane_011" index="0"]
+collision_layer = 2
