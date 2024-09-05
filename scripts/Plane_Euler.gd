@@ -31,7 +31,6 @@ var _tween:Tween
 var _current_speed:=.0
 var is_in_control:=true
 
-signal message_dropped
 signal crashed
 
 func _ready():

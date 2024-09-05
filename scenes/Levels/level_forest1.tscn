@@ -17,12 +17,12 @@ fill = 1
 fill_from = Vector2(0.5, 0.418803)
 fill_to = Vector2(0.230769, 0)
 
-[node name="level_forest1" type="Node3D" node_paths=PackedStringArray("menus", "btn_restart", "btn_main_menu", "btn_next_level", "label")]
+[node name="level_forest1" type="Node3D" node_paths=PackedStringArray("game_end_menu", "pause_menu", "drops", "label")]
 script = ExtResource("1_v025j")
-menus = NodePath("Menus")
-btn_restart = NodePath("Menus/Control/VBoxContainer/Restart")
-btn_main_menu = NodePath("Menus/Control/VBoxContainer/Main Menu")
-btn_next_level = NodePath("Menus/Control/VBoxContainer/Next Level")
+scene_name = "level_forest1"
+game_end_menu = NodePath("End Game Menu")
+pause_menu = NodePath("Pause Menu")
+drops = NodePath("Drops")
 messages = 3
 label = NodePath("Hud/Control/Messages")
 one_star = 50
@@ -33,11 +33,11 @@ three_star = 20
 
 [node name="Control" parent="Hud" instance=ExtResource("4_indaf")]
 
-[node name="Menus" type="CanvasLayer" parent="."]
+[node name="End Game Menu" type="CanvasLayer" parent="."]
 layer = 2
 visible = false
 
-[node name="Control" type="Control" parent="Menus"]
+[node name="Control" type="Control" parent="End Game Menu"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,7 +45,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Menus/Control"]
+[node name="TextureRect" type="TextureRect" parent="End Game Menu/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_nhp7w")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menus/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="End Game Menu/Control"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -66,19 +66,70 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Restart" type="Button" parent="Menus/Control/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Restart"
-
-[node name="Next Level" type="Button" parent="Menus/Control/VBoxContainer"]
+[node name="Next Level" type="Button" parent="End Game Menu/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Next Level"
 
-[node name="Main Menu" type="Button" parent="Menus/Control/VBoxContainer"]
+[node name="Restart" type="Button" parent="End Game Menu/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Restart"
+
+[node name="Main Menu" type="Button" parent="End Game Menu/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Main Menu"
+
+[node name="Pause Menu" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+
+[node name="Control" type="Control" parent="Pause Menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Pause Menu/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_nhp7w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu/Control"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="Pause Menu/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Resume"
+
+[node name="Restart" type="Button" parent="Pause Menu/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Restart"
+
+[node name="Main Menu" type="Button" parent="Pause Menu/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -99,7 +150,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 225.171, 49.6179, -123.596)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 215.661, 49.6178, -28.722)
 
 [node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_xvxpt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 155.005, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139.349, 102.03, 13.7652)
 v_joystick = NodePath("../Hud/Control/Movestick")
 
 [node name="Camera" parent="." node_paths=PackedStringArray("v_joystick", "follow_target") instance=ExtResource("6_5vi3l")]
