@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxnihajd0l6t5"]
+
+[ext_resource type="Script" path="res://scripts/resume_node.gd" id="1_7yvvj"]
+
+[sub_resource type="Gradient" id="Gradient_u01uq"]
+colors = PackedColorArray(0.270222, 0.270222, 0.270222, 0.74902, 0, 0, 0, 0.462745)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nhp7w"]
+gradient = SubResource("Gradient_u01uq")
+fill = 1
+fill_from = Vector2(0.5, 0.418803)
+fill_to = Vector2(0.230769, 0)
+
+[node name="Pause Menu" type="CanvasLayer"]
+process_mode = 2
+layer = 2
+visible = false
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_nhp7w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Resume"
+
+[node name="Restart" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Restart"
+
+[node name="Main Menu" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Main Menu"
+
+[node name="ResumeNode" type="Node" parent="."]
+process_mode = 2
+script = ExtResource("1_7yvvj")

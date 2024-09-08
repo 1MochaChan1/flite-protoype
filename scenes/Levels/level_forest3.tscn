@@ -1,21 +1,31 @@
-[gd_scene load_steps=8 format=3 uid="uid://day17npf5txyg"]
+[gd_scene load_steps=10 format=3 uid="uid://4ype6ki7v36b"]
 
-[ext_resource type="Script" path="res://scripts/level_forest_1.gd" id="1_r0yo1"]
-[ext_resource type="PackedScene" uid="uid://bcep5k62bj3f7" path="res://scenes/control_hud.tscn" id="2_3je2p"]
+[ext_resource type="Script" path="res://scripts/level_forest.gd" id="1_r0yo1"]
+[ext_resource type="PackedScene" uid="uid://d2qw34xxg7hpk" path="res://scenes/UI/hud.tscn" id="2_jik75"]
+[ext_resource type="PackedScene" uid="uid://dg16p7splw1do" path="res://scenes/UI/end_game_menu.tscn" id="3_uv0b1"]
 [ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="3_yj7k3"]
 [ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="4_jyyyn"]
+[ext_resource type="PackedScene" uid="uid://cxnihajd0l6t5" path="res://scenes/UI/pause_menu.tscn" id="4_likam"]
 [ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_nqnwq"]
 [ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/third_person_camera.tscn" id="6_cjee8"]
 [ext_resource type="PackedScene" uid="uid://dp6b74emxjud3" path="res://scenes/Lighting/forest_level_lighting.tscn" id="7_gskyk"]
 
-[node name="LevelForest1" type="Node3D" node_paths=PackedStringArray("label")]
+[node name="level_forest3" type="Node3D" node_paths=PackedStringArray("game_end_menu", "pause_menu", "hud", "drops")]
 script = ExtResource("1_r0yo1")
-messages = 3
-label = NodePath("CanvasLayer/Control/Messages")
+scene_name = "level_forest3"
+game_end_menu = NodePath("End Game Menu")
+pause_menu = NodePath("Pause Menu")
+hud = NodePath("Hud")
+drops = NodePath("Drops")
+one_star = 50
+two_star = 40
+three_star = 20
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Hud" parent="." instance=ExtResource("2_jik75")]
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource("2_3je2p")]
+[node name="End Game Menu" parent="." instance=ExtResource("3_uv0b1")]
+
+[node name="Pause Menu" parent="." instance=ExtResource("4_likam")]
 
 [node name="Terrain" parent="." instance=ExtResource("3_yj7k3")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
@@ -23,19 +33,18 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 [node name="Drops" type="Node" parent="."]
 
 [node name="DropPoint" parent="Drops" instance=ExtResource("4_jyyyn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1184.2, 477.153, -1073.64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 195.623, 49.6178, -186.627)
 
 [node name="DropPoint2" parent="Drops" instance=ExtResource("4_jyyyn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1007.44, 113.729, 699.37)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 225.171, 49.6179, -123.596)
 
 [node name="DropPoint3" parent="Drops" instance=ExtResource("4_jyyyn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1484.16, 113.729, 699.37)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 215.661, 49.6178, -28.722)
 
-[node name="Plane" parent="." node_paths=PackedStringArray("v_joystick") instance=ExtResource("5_nqnwq")]
-v_joystick = NodePath("../CanvasLayer/Control/Movestick")
+[node name="Plane" parent="." instance=ExtResource("5_nqnwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139.349, 102.03, 13.7652)
 
-[node name="Camera" parent="." node_paths=PackedStringArray("v_joystick", "follow_target") instance=ExtResource("6_cjee8")]
-v_joystick = NodePath("../CanvasLayer/Control/Lookstick")
+[node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("6_cjee8")]
 follow_target = NodePath("../Plane")
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("7_gskyk")]
@@ -44,6 +53,3 @@ follow_target = NodePath("../Plane")
 transform = Transform3D(-0.425779, -0.896668, 0.121234, 0, 0.133986, 0.990983, -0.904827, 0.42194, -0.0570485, 0, 229.664, 0)
 light_energy = 0.8
 shadow_enabled = true
-
-[editable path="CanvasLayer/Control"]
-[editable path="CanvasLayer/Control/Movestick"]

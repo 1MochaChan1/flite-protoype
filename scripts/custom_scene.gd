@@ -1,30 +1,28 @@
 class_name CustomScene extends Node3D
 
-
 @export var is_level:bool=true
 @export var scene_name:String
 
 @export_category('PLayable Level Menu Option')
 @export var game_end_menu:CanvasLayer
 @export var pause_menu:CanvasLayer
+@export var hud:CanvasLayer
 @export var drops:Node
-@export var messages:=0
-@export var label:Label
 
 @export_category('PLayable Level Milestones')
 ## how many seconds for 1 star
-@export var one_star:int
+@export var one_star:int = 20
 ## how many seconds for 2 star
-@export var two_star:int
+@export var two_star:int = 50
 ## how many seconds for 3 star
-@export var three_star:int
+@export var three_star:int = 60
 
-var current_messgaes:int
+var messages:int
 var player:CharacterBody3D
 
 var time_start = 0
 var elapsed_time = 0
-#var is_paused := false
+
 ## Buttons for menus
 var g_btn_restart:Button
 var g_btn_main_menu:Button
@@ -39,11 +37,9 @@ signal call_scene_restart()
 
 ## NOTE: Edit for having the minimal functionality such as a Main Menu.
 func _ready():
-	if(label):
-		label.text += ": "+str(messages) 
-	
+	get_tree().paused = false
 	if(is_level):
-		
+		messages = drops.get_child_count()
 		for drop in drops.get_children():
 			if(drop is Drop):
 				drop.message_dropped.connect(
@@ -51,12 +47,19 @@ func _ready():
 		
 		game_end_menu.visible = false
 		pause_menu.visible = false
-	
+		
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		player = get_tree().get_nodes_in_group('Player')[0]
-	
+		player = get_tree().get_nodes_in_group('Players')[0]
+		var camera = get_tree().get_nodes_in_group('Cameras')[0]
+		
 		if(player is Player):
 			player.crashed.connect(on_level_fail)
+			if (not player.v_joystick):
+				player.v_joystick = hud.get_node('Control/Movestick')
+		
+		if (camera is Camera):
+			if (not camera.v_joystick):
+				camera.v_joystick = hud.get_node('Control/Lookstick')
 		
 		g_btn_next_level = game_end_menu.get_node(
 			"Control/VBoxContainer/Next Level")
@@ -84,43 +87,48 @@ func _ready():
 
 
 func _process(_delta):
-	can_pause_level()
+	#can_pause_level()
+	if(not get_tree().paused and \
+	is_level and \
+	not game_end_menu.visible):
+		resume_game()
 	_calculate_et()
+
+####################################
+########## Custom Methods ##########
+####################################
 
 ## Will work in playable levels.
 func update_message_count():
 	if(not is_level):
 		return
 	messages -= 1
-	label.text = "Messages: "+str(messages)
 	
 	if(messages == 0):
 		on_level_pass()
 
 
-func can_pause_level():
-	if(Input.is_action_just_pressed("ui_cancel")\
-	and not game_end_menu.visible):
-		if(get_tree().paused):
-			resume_game()
-		else:
-			pause_game()
-
-
-func pause_game():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	get_tree().paused = true
-	pause_menu.visible = get_tree().paused
-
-func resume_game():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	get_tree().paused = false
-	pause_menu.visible = get_tree().paused
-
 func pause_player_movement():
 	if(player is Player):
 		player.is_in_control = false
 
+
+## Returns elapsed time since the level started
+## Pauses when the level pauses.
+func _calculate_et() -> float:
+	if(not get_tree().paused):
+		elapsed_time = Time.get_unix_time_from_system() - time_start 
+	return elapsed_time
+
+func get_current_stars() -> int:
+	if(elapsed_time < three_star):
+		return 3
+	elif(elapsed_time < two_star):
+		return 2
+	return 1
+
+
+####### Level Methods 🧱 #######
 func on_level_pass():
 	if(not is_level and game_end_menu.visible):
 		return
@@ -139,7 +147,6 @@ func on_level_pass():
 	## TODO: Also add saving to file. + Cleanup code.
 
 
-
 func on_level_fail():
 	if(not is_level and game_end_menu.visible):
 		return
@@ -149,21 +156,25 @@ func on_level_fail():
 	g_btn_next_level.visible=false
 
 
-## Returns elapsed time since the level started
-## Pauses when the level pauses.
-func _calculate_et() -> float:
-	if(not get_tree().paused):
-		elapsed_time = Time.get_unix_time_from_system() - time_start 
-	return elapsed_time
+####### Menu Visibility Methods 👁 #######
+func _input(event: InputEvent):
+	if(Input.is_action_just_pressed("ui_cancel")\
+	and not game_end_menu.visible and is_level):
+		if(not get_tree().paused):
+			pause_game()
+		
 
-func get_current_stars() -> int:
-	if(elapsed_time < three_star):
-		return 3
-	elif(elapsed_time < two_star):
-		return 2
-	return 1
+func pause_game():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	pause_menu.visible = true
+	get_tree().paused = true
 
-####### Menu Button Methods #######
+func resume_game():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pause_menu.visible = false
+	get_tree().paused = false
+
+####### Menu Button Methods 🔘 #######
 func go_to_next_level():
 	var _lvl_number =int(str(scene_name)[-1]) + 1
 	var next_level = "res://scenes/Levels/level_forest%s.tscn" %str(_lvl_number)

@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody3D
 
-## Virtual joystick for mobile input.
+## This is the joystick input that's assigned to by the current scene
+## if not explicitly overriden.
 @export var v_joystick:VirtualJoystick
 ## The max speed the plane can achieve when diving
 @export var MAX_SPEED:=700.0
@@ -45,7 +46,6 @@ func _physics_process(delta):
 	_handle_rotation(delta)
 	_handle_animation()
 	_handle_physics(delta)
-	#$"../CanvasLayer/Control/Velocity".text = str(velocity)
 
 
 func _handle_input():
@@ -102,6 +102,6 @@ func _move_in_wind_direction(dir:Vector3):
 	look_at(dir, Vector3.UP, true)
 
 
-func _on_hurtbox_body_entered(body: Node3D) -> void:
+func _on_hurtbox_body_entered(_body: Node3D) -> void:
 	if(is_in_control):
 		crashed.emit()

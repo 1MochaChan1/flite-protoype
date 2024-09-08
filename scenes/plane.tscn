@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c0s6fuhehlqdg"]
 
-[ext_resource type="Script" path="res://scripts/Plane_Euler.gd" id="1_2nbnj"]
+[ext_resource type="Script" path="res://scripts/plane_movement.gd" id="1_2nbnj"]
 [ext_resource type="ArrayMesh" uid="uid://dnh0m6roajbw3" path="res://blender_meshes/plane.tres" id="2_xtbjo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfdru"]
@@ -9,7 +9,7 @@ size = Vector3(0.396667, 0.964798, 0.114502)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qq6xe"]
 size = Vector3(0.59079, 0.158806, 1.03456)
 
-[node name="Plane" type="CharacterBody3D" groups=["Player"]]
+[node name="Plane" type="CharacterBody3D" groups=["Players"]]
 collision_mask = 14
 axis_lock_angular_x = true
 axis_lock_angular_z = true

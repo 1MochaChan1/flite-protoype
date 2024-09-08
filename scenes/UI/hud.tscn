@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2qw34xxg7hpk"]
+
+[ext_resource type="PackedScene" uid="uid://bcep5k62bj3f7" path="res://scenes/UI/control_hud.tscn" id="1_1ge7x"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="Control" parent="." instance=ExtResource("1_1ge7x")]
+
+[editable path="Control"]
+[editable path="Control/Movestick"]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcij6vkdhu34j"]
+
+[ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="1_ra0b2"]
+[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="2_ahspl"]
+[ext_resource type="PackedScene" uid="uid://cbgefkwcyqhoa" path="res://blender_meshes/tree1.glb" id="3_behmw"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
+panorama = ExtResource("1_ra0b2")
+
+[sub_resource type="Sky" id="Sky_6mfjr"]
+sky_material = SubResource("PanoramaSkyMaterial_6nhew")
+
+[sub_resource type="Environment" id="Environment_x5jjv"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_6mfjr")
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+tonemap_white = 0.5
+ssao_enabled = true
+fog_density = 0.0005
+fog_aerial_perspective = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_x5jjv")
+
+[node name="Terrain" parent="." instance=ExtResource("2_ahspl")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -3.51574, 0, -9.2319)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.0571283, 0, 0.998367, 0, 1, 0, -0.998367, 0, -0.0571283, 397.604, 61.2294, -277.938)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0936392, 0.995606, 0, -0.995606, 0.0936392, 0, 0, 0)
+
+[node name="tree1" parent="." instance=ExtResource("3_behmw")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60.6371, -1.11581, -159.438)

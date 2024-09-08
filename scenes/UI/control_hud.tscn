@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcep5k62bj3f7"]
 
-[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_iwwx4"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_jf8ob"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -34,13 +34,13 @@ offset_bottom = 74.0
 grow_horizontal = 0
 text = "Messages: "
 
-[node name="Lookstick" parent="." instance=ExtResource("1_iwwx4")]
+[node name="Lookstick" parent="." instance=ExtResource("1_jf8ob")]
 layout_mode = 1
 offset_left = 853.0
 offset_right = 1153.0
 visibility_mode = 1
 
-[node name="Movestick" parent="." instance=ExtResource("1_iwwx4")]
+[node name="Movestick" parent="." instance=ExtResource("1_jf8ob")]
 layout_mode = 1
 offset_top = -457.0
 offset_right = 423.0

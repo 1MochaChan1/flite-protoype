@@ -1,5 +1,8 @@
+class_name Camera
 extends Node3D
 
+## This is the joystick input that's assigned to by the current scene
+## if not explicitly overriden.
 @export var v_joystick:VirtualJoystick
 @export var follow_target:Node3D
 @export var pitch_min:float = -50

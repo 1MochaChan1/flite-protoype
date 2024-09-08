@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnkwo05nli5qv"]
+
+[ext_resource type="PackedScene" uid="uid://cbgefkwcyqhoa" path="res://blender_meshes/tree1.glb" id="1_iynrh"]
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_tkmi8"]
+size = Vector3(1.5, 5.671, 1.5)
+
+[node name="Tree1" instance=ExtResource("1_iynrh")]
+
+[node name="OccluderInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.82178, 0)
+occluder = SubResource("BoxOccluder3D_tkmi8")

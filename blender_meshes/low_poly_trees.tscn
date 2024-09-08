@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3sd0amks7pqm"]
+
+[ext_resource type="PackedScene" uid="uid://dwh51n2acwii0" path="res://blender_meshes/uploads_files_3388392_Nature_LP_GLB.glb" id="1_81d74"]
+[ext_resource type="ArrayMesh" uid="uid://chxtmw32a3jfo" path="res://blender_meshes/tree2.tres" id="2_2bbi0"]
+[ext_resource type="ArrayMesh" uid="uid://7bs0dw03ebxe" path="res://blender_meshes/tree1.tres" id="3_4vhad"]
+
+[node name="uploads_files_3388392_Nature_LP_GLB" instance=ExtResource("1_81d74")]
+
+[node name="Tree_001" parent="." index="80"]
+mesh = ExtResource("2_2bbi0")
+
+[node name="Tree_004" parent="." index="83"]
+mesh = ExtResource("3_4vhad")

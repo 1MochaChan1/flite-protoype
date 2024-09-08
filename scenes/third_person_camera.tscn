@@ -4,7 +4,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fqff8"]
 
-[node name="Camera" type="Node3D"]
+[node name="Camera" type="Node3D" groups=["Cameras"]]
 script = ExtResource("1_ydpgb")
 
 [node name="CameraTarget" type="Node3D" parent="."]
