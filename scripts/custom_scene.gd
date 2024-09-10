@@ -132,7 +132,7 @@ func get_current_stars() -> int:
 func on_level_pass():
 	if(not is_level and game_end_menu.visible):
 		return
-	#pause_player_movement()
+	pause_player_movement()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	game_end_menu.visible = true
 	var _save_game = GameManager.save_game
@@ -142,13 +142,10 @@ func on_level_pass():
 	
 	if(cur_stars > level_star):
 		_save_game.level_stats[scene_name] = cur_stars
-	
-	## TODO: Please change the naming convention for the levels.
-	## TODO: Also add saving to file. + Cleanup code.
-
+		GameManager.save_game.write_savegame()
 
 func on_level_fail():
-	if(not is_level and game_end_menu.visible):
+	if(game_end_menu.visible):
 		return
 	pause_player_movement()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -178,12 +175,17 @@ func resume_game():
 func go_to_next_level():
 	var _lvl_number =int(str(scene_name)[-1]) + 1
 	var next_level = "res://scenes/Levels/level_forest%s.tscn" %str(_lvl_number)
-	call_scene_change.emit(next_level)
+	get_tree().change_scene_to_packed(
+		load(next_level))
+	#call_scene_change.emit(next_level)
 
 func go_to_main_menu():
-	call_scene_change.emit('res://scenes/level_select.tscn')
-	# on main menu check game file to see which levels are playable
+	#call_scene_change.emit('res://scenes/level_select.tscn')
+	get_tree().change_scene_to_packed(
+		preload('res://scenes/level_select.tscn'))
+
 
 func restart_level():
 	var _scene = "res://scenes/Levels/%s.tscn" % scene_name
-	call_scene_change.emit(_scene)
+	get_tree().change_scene_to_packed(
+		load(_scene))

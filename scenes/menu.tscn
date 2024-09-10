@@ -29,6 +29,8 @@ offset_right = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(20, 15)
 text = "Play"
 
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]

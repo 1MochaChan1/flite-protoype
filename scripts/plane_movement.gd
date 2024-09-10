@@ -4,9 +4,11 @@ class_name Player extends CharacterBody3D
 ## if not explicitly overriden.
 @export var v_joystick:VirtualJoystick
 ## The max speed the plane can achieve when diving
-@export var MAX_SPEED:=700.0
+@export var MAX_SPEED:=300.0
 ## The speed that the plane will run on mostly
-@export var MIN_SPEED:=50.0
+@export var MIN_SPEED:=25.0
+
+@export var DIP_ACCELERATION:=10.0
 
 @export_category("Orientation")
 ## In Degrees
@@ -31,6 +33,8 @@ var _yaw:=.0
 var _tween:Tween
 var _current_speed:=.0
 var is_in_control:=true
+var _rise_meter:float=0.0
+var _accelerated_speed:float
 
 signal crashed
 
@@ -43,9 +47,10 @@ func _physics_process(delta):
 	if(not is_in_control):
 		return
 	_handle_input()
+	_handle_physics(delta)
 	_handle_rotation(delta)
 	_handle_animation()
-	_handle_physics(delta)
+	
 
 
 func _handle_input():
@@ -60,13 +65,23 @@ func _handle_input():
 
 func _handle_physics(delta):
 	_fwd=basis.z
+	print(_pitch_input)
 	
+	if(_pitch_input<0 and not _rise_meter>0):
+		_pitch_input = 0
+	elif(_pitch_input<0 and _rise_meter>0):
+		_rise_meter -= delta * 4
+	
+	_accelerated_speed = abs(_current_speed + (_pitch_input * DIP_ACCELERATION))
 	if(_pitch_input != 0):
 		_current_speed = lerp(
-			_current_speed, _current_speed + (_pitch_input * 5), delta * 8)
+			_current_speed, _accelerated_speed, delta * 6)
+		_rise_meter += delta *2
+		_rise_meter = clamp(_rise_meter, 0, 10)
+	
 	else:
 		_current_speed = lerp(
-			_current_speed, MIN_SPEED, delta * 0.05)
+			_current_speed, MIN_SPEED, delta * 0.25)
 			
 	_current_speed = clamp(_current_speed, MIN_SPEED, MAX_SPEED)
 	

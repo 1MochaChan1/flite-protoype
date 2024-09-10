@@ -1,8 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcij6vkdhu34j"]
+[gd_scene load_steps=25 format=3 uid="uid://bcij6vkdhu34j"]
 
 [ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="1_ra0b2"]
 [ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="2_ahspl"]
-[ext_resource type="PackedScene" uid="uid://cbgefkwcyqhoa" path="res://blender_meshes/tree1.glb" id="3_behmw"]
+[ext_resource type="PackedScene" uid="uid://cnkwo05nli5qv" path="res://blender_meshes/tree_1.tscn" id="3_mku73"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="4_5xjmg"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="5_qmyut"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="6_d46o5"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="7_04uas"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="8_kyhxf"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="9_5ewwh"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="10_72pr8"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="11_flx0m"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/offset_scale.gd" id="11_orlrb"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="12_4qcjk"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="14_nd8nl"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
 panorama = ExtResource("1_ra0b2")
@@ -14,24 +25,119 @@ sky_material = SubResource("PanoramaSkyMaterial_6nhew")
 background_mode = 2
 background_energy_multiplier = 0.5
 sky = SubResource("Sky_6mfjr")
-ambient_light_sky_contribution = 0.0
+ambient_light_color = Color(0.387721, 0.478009, 0.562353, 1)
+ambient_light_sky_contribution = 0.25
 tonemap_mode = 2
 tonemap_white = 0.5
 ssao_enabled = true
+glow_enabled = true
+glow_bloom = 0.15
 fog_density = 0.0005
 fog_aerial_perspective = 1.0
+adjustment_enabled = true
+adjustment_brightness = 1.25
+adjustment_contrast = 0.75
+adjustment_saturation = 1.5
+
+[sub_resource type="Resource" id="Resource_3ybur"]
+script = ExtResource("7_04uas")
+amount = 500
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_pu4oc"]
+script = ExtResource("8_kyhxf")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(1, 1, 1)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_41ke7"]
+script = ExtResource("9_5ewwh")
+iterations = 3
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+use_computeshader = true
+enabled = false
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_mrgob"]
+script = ExtResource("10_72pr8")
+ray_direction = Vector3(0, -1, 0)
+ray_length = 100.0
+ray_offset = 5.0
+remove_points_on_miss = false
+align_with_collision_normal = false
+max_slope = 90.0
+collision_mask = 2
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_trr0p"]
+script = ExtResource("11_orlrb")
+operation = 1
+scale = Vector3(5, 5, 5)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_7fyoj"]
+script = ExtResource("5_qmyut")
+stack = Array[ExtResource("6_d46o5")]([SubResource("Resource_3ybur"), SubResource("Resource_pu4oc"), SubResource("Resource_41ke7"), SubResource("Resource_mrgob"), SubResource("Resource_trr0p")])
+
+[sub_resource type="Resource" id="Resource_gyly5"]
+script = ExtResource("14_nd8nl")
+size = Vector3(1723.05, 1, 562.707)
 
 [node name="WorldEnvironment" type="WorldEnvironment"]
 environment = SubResource("Environment_x5jjv")
 
 [node name="Terrain" parent="." instance=ExtResource("2_ahspl")]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -3.51574, 0, -9.2319)
+visible = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.0571283, 0, 0.998367, 0, 1, 0, -0.998367, 0, -0.0571283, 397.604, 61.2294, -277.938)
+transform = Transform3D(-0.0571283, 0, 0.998367, 0, 1, 0, -0.998367, 0, -0.0571283, 610.711, 19.1133, -301.578)
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0936392, 0.995606, 0, -0.995606, 0.0936392, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -0.23005, 0.973179, 0, -0.973179, -0.23005, 0, 0, 0)
+visible = false
+shadow_enabled = true
 
-[node name="tree1" parent="." instance=ExtResource("3_behmw")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 60.6371, -1.11581, -159.438)
+[node name="Tree1" parent="." instance=ExtResource("3_mku73")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 71.7449, -3.05237, -107.407)
+visible = false
+
+[node name="ProtonScatter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45807, 83.1235, 55.9415)
+visible = false
+script = ExtResource("4_5xjmg")
+modifier_stack = SubResource("Resource_7fyoj")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("11_flx0m")
+path = "res://blender_meshes/tree_1.tscn"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 14.1138, 12.5456, 276.543)
+script = ExtResource("12_4qcjk")
+shape = SubResource("Resource_gyly5")

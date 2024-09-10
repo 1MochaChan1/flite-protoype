@@ -6,6 +6,7 @@
 size = Vector3(1.5, 5.671, 1.5)
 
 [node name="Tree1" instance=ExtResource("1_iynrh")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 
 [node name="OccluderInstance3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.82178, 0)

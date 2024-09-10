@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://scripts/drop_point.gd" id="1_4bxud"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fu4lh"]
-height = 106.109
-radius = 21.9795
+height = 84.8246
+radius = 14.557
 
 [node name="DropPoint" type="Node3D"]
 script = ExtResource("1_4bxud")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41, 0)
 radius = 14.614
 height = 82.493
 
@@ -18,7 +18,7 @@ height = 82.493
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 37.5512, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41.6769, 0)
 shape = SubResource("CylinderShape3D_fu4lh")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

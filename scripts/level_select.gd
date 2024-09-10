@@ -18,4 +18,6 @@ func _process(delta: float) -> void:
 
 func _start_level(level_name):
 	var _level = "res://scenes/Levels/%s.tscn" % level_name
-	call_scene_change.emit(_level)
+	get_tree().change_scene_to_packed(
+		load(_level))
+	#call_scene_change.emit(_level)

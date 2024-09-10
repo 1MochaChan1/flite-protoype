@@ -43,8 +43,11 @@ func _process(delta):
 func handle_cam(delta):
 	pitch = clamp(pitch, pitch_min, pitch_max)
 	if(is_moving):
+		if(not reset_timer.is_stopped()):
+			reset_timer.stop()
 		if(is_resetting):
 			is_resetting = false
+			
 		spring_arm_3d.rotation_degrees.y = lerpf(
 		spring_arm_3d.rotation_degrees.y, yaw, 10*delta)
 		
@@ -56,11 +59,14 @@ func handle_cam(delta):
 			reset_timer.start()
 		
 		if(is_resetting):
-			spring_arm_3d.rotation_degrees.y = lerpf(
-				spring_arm_3d.rotation_degrees.y, 0, 2.5*delta)
-		
-			spring_arm_3d.rotation_degrees.x = lerpf(
-				spring_arm_3d.rotation_degrees.x, 0, 2.5*delta)
+			spring_arm_3d.rotation_degrees = lerp(
+				spring_arm_3d.rotation_degrees, Vector3.ZERO, 2.5*delta)
+				
+			#spring_arm_3d.rotation_degrees.y = lerpf(
+				#spring_arm_3d.rotation_degrees.y, 0, 2.5*delta)
+		#
+			#spring_arm_3d.rotation_degrees.x = lerpf(
+				#spring_arm_3d.rotation_degrees.x, 0, 2.5*delta)
 	
 	camera_target.global_position = follow_target.global_position
 	

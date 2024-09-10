@@ -17,7 +17,6 @@ radius = 16.8475
 
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_yr0ih")
-messages = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
