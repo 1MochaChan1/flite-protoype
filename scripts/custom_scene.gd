@@ -25,10 +25,10 @@ var elapsed_time = 0
 
 ## Buttons for menus
 var g_btn_restart:Button
-var g_btn_main_menu:Button
+var g_btn_level_select:Button
 var g_btn_next_level:Button
 var p_btn_restart:Button
-var p_btn_main_menu:Button
+var p_btn_level_select:Button
 var p_btn_resume:Button
 
 # These will be called by scenes or the scene_managers (only).
@@ -63,23 +63,23 @@ func _ready():
 		
 		g_btn_next_level = game_end_menu.get_node(
 			"Control/VBoxContainer/Next Level")
-		g_btn_main_menu = game_end_menu.get_node(
-			"Control/VBoxContainer/Main Menu")
+		g_btn_level_select = game_end_menu.get_node(
+			"Control/VBoxContainer/Level Select")
 		g_btn_restart = game_end_menu.get_node(
 			"Control/VBoxContainer/Restart")
 		
 		p_btn_resume = pause_menu.get_node(
 			"Control/VBoxContainer/Resume")
-		p_btn_main_menu = pause_menu.get_node(
-			"Control/VBoxContainer/Main Menu")
+		p_btn_level_select = pause_menu.get_node(
+			"Control/VBoxContainer/Level Select")
 		p_btn_restart = pause_menu.get_node(
 			"Control/VBoxContainer/Restart")
 		
-		g_btn_main_menu.pressed.connect(go_to_main_menu)
+		g_btn_level_select.pressed.connect(go_to_level_select)
 		g_btn_restart.pressed.connect(restart_level)
 		g_btn_next_level.pressed.connect(go_to_next_level)
 		
-		p_btn_main_menu.pressed.connect(go_to_main_menu)
+		p_btn_level_select.pressed.connect(go_to_level_select)
 		p_btn_restart.pressed.connect(restart_level)
 		p_btn_resume.pressed.connect(resume_game)
 		
@@ -139,7 +139,6 @@ func on_level_pass():
 	var level_star = _save_game.level_stats[scene_name]
 	
 	var cur_stars = get_current_stars()
-	
 	if(cur_stars > level_star):
 		_save_game.level_stats[scene_name] = cur_stars
 		GameManager.save_game.write_savegame()
@@ -174,15 +173,28 @@ func resume_game():
 ####### Menu Button Methods 🔘 #######
 func go_to_next_level():
 	var _lvl_number =int(str(scene_name)[-1]) + 1
+	#TODO: Make this dynamic with a next_level variable
 	var next_level = "res://scenes/Levels/level_forest%s.tscn" %str(_lvl_number)
-	get_tree().change_scene_to_packed(
-		load(next_level))
+	if(ResourceLoader.exists(next_level)):
+		get_tree().change_scene_to_packed(
+			load(next_level))
+	else:
+		printerr("Path to next level is invalid")
 	#call_scene_change.emit(next_level)
 
 func go_to_main_menu():
-	#call_scene_change.emit('res://scenes/level_select.tscn')
 	get_tree().change_scene_to_packed(
-		preload('res://scenes/level_select.tscn'))
+		preload("res://scenes/UI/menu.tscn"))
+
+func go_to_level_select():
+	get_tree().paused = false
+	get_tree().change_scene_to_packed(
+		preload("res://scenes/UI/level_select.tscn"))
+
+func go_to_selected_level(level_name:String):
+	var _level = "res://scenes/Levels/%s.tscn" % level_name
+	get_tree().change_scene_to_packed(
+		load(_level))
 
 
 func restart_level():

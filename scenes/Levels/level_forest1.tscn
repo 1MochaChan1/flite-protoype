@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="1_pc4oe"]
 [ext_resource type="Script" path="res://scripts/level_forest.gd" id="1_v025j"]
-[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="2_5o06y"]
+[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/Core/drop_point.tscn" id="2_5o06y"]
 [ext_resource type="PackedScene" uid="uid://d2qw34xxg7hpk" path="res://scenes/UI/hud.tscn" id="2_o4won"]
 [ext_resource type="PackedScene" uid="uid://dg16p7splw1do" path="res://scenes/UI/end_game_menu.tscn" id="3_6n42m"]
 [ext_resource type="PackedScene" uid="uid://cxnihajd0l6t5" path="res://scenes/UI/pause_menu.tscn" id="4_lc2on"]
-[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_xvxpt"]
-[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/third_person_camera.tscn" id="6_5vi3l"]
+[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/Core/plane.tscn" id="5_xvxpt"]
+[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/Core/third_person_camera.tscn" id="6_5vi3l"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="10_xj57x"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_xvour"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="12_ypq3h"]
@@ -33,7 +33,7 @@ background_mode = 2
 background_energy_multiplier = 0.5
 sky = SubResource("Sky_6mfjr")
 ambient_light_color = Color(0.212727, 0.274445, 0.331882, 1)
-tonemap_mode = 2
+tonemap_mode = 3
 tonemap_white = 0.5
 ssao_enabled = true
 glow_enabled = true
@@ -46,7 +46,7 @@ adjustment_brightness = 1.25
 adjustment_contrast = 0.75
 adjustment_saturation = 1.5
 
-[sub_resource type="Resource" id="Resource_couj6"]
+[sub_resource type="Resource" id="Resource_k715d"]
 script = ExtResource("13_jwg2v")
 amount = 500
 enabled = true
@@ -55,7 +55,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_l5ewx"]
+[sub_resource type="Resource" id="Resource_6myvj"]
 script = ExtResource("14_0aiqn")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(0, 0, 0)
@@ -66,7 +66,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_dgb42"]
+[sub_resource type="Resource" id="Resource_2t8uc"]
 script = ExtResource("15_0x6cu")
 iterations = 3
 offset_step = 0.2
@@ -78,7 +78,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_3l7ji"]
+[sub_resource type="Resource" id="Resource_73h2m"]
 script = ExtResource("16_3s2ff")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 1000.0
@@ -94,19 +94,19 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_uosrm"]
+[sub_resource type="Resource" id="Resource_c0c71"]
 script = ExtResource("17_4faj5")
 operation = 1
-scale = Vector3(8, 8, 8)
+scale = Vector3(10, 10, 8)
 enabled = true
 override_global_seed = false
 custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_13r1a"]
+[sub_resource type="Resource" id="Resource_w2u4w"]
 script = ExtResource("11_xvour")
-stack = Array[ExtResource("12_ypq3h")]([SubResource("Resource_couj6"), SubResource("Resource_l5ewx"), SubResource("Resource_dgb42"), SubResource("Resource_3l7ji"), SubResource("Resource_uosrm")])
+stack = Array[ExtResource("12_ypq3h")]([SubResource("Resource_k715d"), SubResource("Resource_6myvj"), SubResource("Resource_2t8uc"), SubResource("Resource_73h2m"), SubResource("Resource_c0c71")])
 
 [sub_resource type="Resource" id="Resource_8124x"]
 script = ExtResource("20_dq6y6")
@@ -125,7 +125,7 @@ closed = true
 thickness = 0.0
 curve = SubResource("Curve3D_uknxi")
 
-[node name="LevelForest1" type="Node3D" node_paths=PackedStringArray("game_end_menu", "pause_menu", "hud", "drops")]
+[node name="LevelForest" type="Node3D" node_paths=PackedStringArray("game_end_menu", "pause_menu", "hud", "drops")]
 script = ExtResource("1_v025j")
 scene_name = "level_forest1"
 game_end_menu = NodePath("End Game Menu")
@@ -149,10 +149,16 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 [node name="Drops" type="Node" parent="."]
 
 [node name="DropPoint3" parent="Drops" instance=ExtResource("2_5o06y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 171.147, 13.317, 305.62)
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -117.164, 87.1066, 924.484)
+
+[node name="DropPoint4" parent="Drops" instance=ExtResource("2_5o06y")]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, 696.901, 159.462, -1446.28)
+
+[node name="DropPoint5" parent="Drops" instance=ExtResource("2_5o06y")]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -1203.72, 503.094, -1098.86)
 
 [node name="Plane" parent="." instance=ExtResource("5_xvxpt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 171.437, 870.967, 179.491)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1954.21, 870.967, -1501.77)
 
 [node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("6_5vi3l")]
 follow_target = NodePath("../Plane")
@@ -169,7 +175,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45807, 152.969, 55.9415)
 script = ExtResource("10_xj57x")
 render_mode = 1
-modifier_stack = SubResource("Resource_13r1a")
+modifier_stack = SubResource("Resource_w2u4w")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 

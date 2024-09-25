@@ -9,7 +9,7 @@ extends Node3D
 @export var pitch_max:float = 50
 @export var pitch_sensi = 0.1
 @export var yaw_sensi = 0.1
-
+@export var max_fov := 100.0
 
 @onready var spring_arm_3d = $CameraTarget/SpringArm3D
 @onready var camera_target = $CameraTarget
@@ -22,21 +22,21 @@ var pitch:float
 var cam_target_basis:Basis
 var is_moving:bool = false
 var is_resetting:bool = false
-var event:Vector2
-
-
+var _mouse_event:Vector2
+var _initial_fov:=75.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	camera_3d.position.z = spring_arm_3d.spring_length
 	camera_target.global_position = follow_target.global_position
-
+	_initial_fov = camera_3d.fov
 
 func _process(delta):
+
 	if(OS.get_model_name() != "GenericDevice"):
 		_handle_joystick_input()
 	else:
 		_handle_mouse_input()
-	
+	_handle_fov(delta)
 	handle_cam(delta)
 
 
@@ -61,12 +61,6 @@ func handle_cam(delta):
 		if(is_resetting):
 			spring_arm_3d.rotation_degrees = lerp(
 				spring_arm_3d.rotation_degrees, Vector3.ZERO, 2.5*delta)
-				
-			#spring_arm_3d.rotation_degrees.y = lerpf(
-				#spring_arm_3d.rotation_degrees.y, 0, 2.5*delta)
-		#
-			#spring_arm_3d.rotation_degrees.x = lerpf(
-				#spring_arm_3d.rotation_degrees.x, 0, 2.5*delta)
 	
 	camera_target.global_position = follow_target.global_position
 	
@@ -84,10 +78,21 @@ func _handle_joystick_input():
 	else:
 		is_moving=false
 
+func _handle_fov(delta):
+	if(follow_target is Player):
+		var _vel = follow_target.velocity.length()
+		var _amt = follow_target.get_normalized_curr_speed()
+		if(_vel > follow_target.MIN_SPEED*8):
+			camera_3d.fov = lerpf(
+				camera_3d.fov, max_fov, delta)
+		else:
+			camera_3d.fov = lerpf(
+				camera_3d.fov, _initial_fov, delta)
+		camera_3d.fov = clamp(camera_3d.fov, _initial_fov, max_fov)
 
 func _handle_mouse_input():
-	event = Input.get_last_mouse_velocity()
-	if (event.length() > 0):
+	_mouse_event = Input.get_last_mouse_velocity()
+	if (_mouse_event.length() > 0):
 		is_moving = true
 	else:
 		is_moving = false

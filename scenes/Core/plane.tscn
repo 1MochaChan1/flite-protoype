@@ -1,0 +1,112 @@
+[gd_scene load_steps=12 format=3 uid="uid://c0s6fuhehlqdg"]
+
+[ext_resource type="Script" path="res://scripts/plane_movement.gd" id="1_2nbnj"]
+[ext_resource type="ArrayMesh" uid="uid://dnh0m6roajbw3" path="res://blender_meshes/plane.tres" id="2_xtbjo"]
+[ext_resource type="Shader" path="res://assets/shaders/speed_lines.gdshader" id="3_3qcy0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qfdru"]
+size = Vector3(0.396667, 0.964798, 0.114502)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qq6xe"]
+size = Vector3(0.59079, 0.158806, 1.03456)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tmj71"]
+offset = Vector3(100, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3khcc"]
+generate_mipmaps = false
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_tmj71")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xn8p1"]
+shader = ExtResource("3_3qcy0")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/sample_radius = 0.79
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/center_radius = 0.5
+shader_parameter/hole_smoothness = 0.4
+shader_parameter/hole_radius = 0.2
+shader_parameter/transparency = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_3khcc")
+
+[sub_resource type="Animation" id="Animation_2dpkp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Speedlines:material:shader_parameter/noise:noise:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(100, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nadw8"]
+resource_name = "fade_in_speed_lines"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Speedlines:material:shader_parameter/noise:noise:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(452.63, 1000, 0), Vector3(1000, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8oilk"]
+_data = {
+"RESET": SubResource("Animation_2dpkp"),
+"fade_in_speed_lines": SubResource("Animation_nadw8")
+}
+
+[node name="Plane" type="CharacterBody3D" groups=["Players"]]
+collision_mask = 14
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_2nbnj")
+MIN_SPEED = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 2.98023e-08, -4.37114e-08, -1, 1.3027e-15, 1, -4.37114e-08, -0.00772095, -0.0148316, 0.161415)
+shape = SubResource("BoxShape3D_qfdru")
+
+[node name="MeshContainer" type="Node3D" parent="."]
+
+[node name="PlaneMesh" type="CSGPolygon3D" parent="MeshContainer"]
+transform = Transform3D(1, 2.98023e-08, 0, 0, -4.37114e-08, -0.1, -2.98023e-08, 1, -4.37114e-09, 0, 0, 0)
+visible = false
+polygon = PackedVector2Array(-0.00756028, 0.525761, -0.477587, -0.00791459, 0.511427, -0.00301842)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshContainer"]
+transform = Transform3D(-5, 0, -7.54979e-07, 0, 5, 0, 7.54979e-07, 0, -5, 0, 0, 0.220902)
+mesh = ExtResource("2_xtbjo")
+
+[node name="Hurtbox" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.00135806, -0.0286143, 0.171379)
+shape = SubResource("BoxShape3D_qq6xe")
+
+[node name="Speedlines" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_xn8p1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8oilk")
+}
+autoplay = "fade_in_speed_lines"
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

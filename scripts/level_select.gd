@@ -1,23 +1,33 @@
 extends CustomScene
 
-@onready var grid_container: GridContainer = $CanvasLayer/Control/GridContainer
+@export var grid: GridContainer
 
-# Called when the node enters the scene tree for the first time.
+var tile_ins = preload("res://scenes/UI/btn_level_select.tscn")
+
 func _ready() -> void:
-	var children = grid_container.get_children()
-	for child in children:
-		if(child is Button):
-			child.pressed.connect(_start_level.bind(child.name))
-			child.text += " ⭐:%s" %GameManager\
-			.save_game.level_stats[child.name]
+	_gen_tiles()
+	#var children = get_tree().get_nodes_in_group('LevelButtons')
+	#for child in children:
+		#if(child is LevelSelectButton):
+			#child.pressed.connect(_start_level.bind(child.name))
+			#child.star = "⭐%s" %GameManager\
+			#.save_game.level_stats[child.name]
+ 
 
+func _start_level(level_name=null):
+	go_to_selected_level(level_name)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _gen_tiles():
+	var levels = GameManager.save_game.level_stats
+	for key in levels.keys():
+		var tile = tile_ins.instantiate()
+		grid.add_child(tile)
+		if(tile  is LevelSelectButton):
+			tile.stars = levels[key]
+			print(levels[key], ": ", key)
+			tile.level_name = key
+			tile.level_no = key[-1]
+			tile.handle_stars()
+			tile.btn.pressed.connect(
+				_start_level.bind(tile.level_name))
 	pass
-
-func _start_level(level_name):
-	var _level = "res://scenes/Levels/%s.tscn" % level_name
-	get_tree().change_scene_to_packed(
-		load(_level))
-	#call_scene_change.emit(_level)

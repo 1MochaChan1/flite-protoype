@@ -14,5 +14,7 @@ static func save_exist() -> bool:
 
 static func load_savegame() -> Resource:
 	if not ResourceLoader.has_cached(SAVE_GAME_PATH):
-		return ResourceLoader.load(SAVE_GAME_PATH, "", 0)
+		return ResourceLoader.load(
+			SAVE_GAME_PATH, "", 
+			ResourceLoader.CacheMode.CACHE_MODE_IGNORE)
 	return null

@@ -39,7 +39,7 @@ adjustment_brightness = 1.25
 adjustment_contrast = 0.75
 adjustment_saturation = 1.5
 
-[sub_resource type="Resource" id="Resource_3ybur"]
+[sub_resource type="Resource" id="Resource_svxcy"]
 script = ExtResource("7_04uas")
 amount = 500
 enabled = true
@@ -48,7 +48,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_pu4oc"]
+[sub_resource type="Resource" id="Resource_fpdwx"]
 script = ExtResource("8_kyhxf")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(0, 0, 0)
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_41ke7"]
+[sub_resource type="Resource" id="Resource_e3sd8"]
 script = ExtResource("9_5ewwh")
 iterations = 3
 offset_step = 0.2
@@ -71,7 +71,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_mrgob"]
+[sub_resource type="Resource" id="Resource_u2ol3"]
 script = ExtResource("10_72pr8")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 100.0
@@ -87,7 +87,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_trr0p"]
+[sub_resource type="Resource" id="Resource_1rn0u"]
 script = ExtResource("11_orlrb")
 operation = 1
 scale = Vector3(5, 5, 5)
@@ -97,9 +97,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_7fyoj"]
+[sub_resource type="Resource" id="Resource_njkts"]
 script = ExtResource("5_qmyut")
-stack = Array[ExtResource("6_d46o5")]([SubResource("Resource_3ybur"), SubResource("Resource_pu4oc"), SubResource("Resource_41ke7"), SubResource("Resource_mrgob"), SubResource("Resource_trr0p")])
+stack = Array[ExtResource("6_d46o5")]([SubResource("Resource_svxcy"), SubResource("Resource_fpdwx"), SubResource("Resource_e3sd8"), SubResource("Resource_u2ol3"), SubResource("Resource_1rn0u")])
 
 [sub_resource type="Resource" id="Resource_gyly5"]
 script = ExtResource("14_nd8nl")
@@ -129,7 +129,7 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45807, 83.1235, 55.9415)
 visible = false
 script = ExtResource("4_5xjmg")
-modifier_stack = SubResource("Resource_7fyoj")
+modifier_stack = SubResource("Resource_njkts")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 

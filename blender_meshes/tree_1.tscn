@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cbgefkwcyqhoa" path="res://blender_meshes/tree1.glb" id="1_iynrh"]
 
 [sub_resource type="BoxOccluder3D" id="BoxOccluder3D_tkmi8"]
-size = Vector3(1.5, 5.671, 1.5)
+size = Vector3(0.946141, 5.671, 0.949942)
 
 [node name="Tree1" instance=ExtResource("1_iynrh")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)

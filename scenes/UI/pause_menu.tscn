@@ -14,7 +14,6 @@ fill_to = Vector2(0.230769, 0)
 [node name="Pause Menu" type="CanvasLayer"]
 process_mode = 2
 layer = 2
-visible = false
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -57,11 +56,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Restart"
 
-[node name="Main Menu" type="Button" parent="Control/VBoxContainer"]
+[node name="Level Select" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Main Menu"
+text = "Level Select"
 
 [node name="ResumeNode" type="Node" parent="."]
 process_mode = 2

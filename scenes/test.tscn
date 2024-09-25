@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/plane_handler.gd" id="1_0aj0n"]
 [ext_resource type="Texture2D" uid="uid://c1qr05ib66de3" path="res://assets/dfbd22fb-278a-47e5-85f0-66cc387cee42 (1).png" id="1_0q2mq"]
-[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/third_person_camera.tscn" id="2_xv5ey"]
+[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/Core/third_person_camera.tscn" id="2_xv5ey"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
 panorama = ExtResource("1_0q2mq")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxn8jsewa66nw"]
+
+[ext_resource type="Script" path="res://scripts/level_select.gd" id="1_c1h5c"]
+[ext_resource type="Theme" uid="uid://b30ij2pcn7obr" path="res://scenes/UI/btn_level_select_theme.tres" id="2_q1y7b"]
+
+[sub_resource type="Gradient" id="Gradient_h2w2f"]
+colors = PackedColorArray(0.0279206, 0.258427, 0.365535, 1, 0.0862745, 0.47451, 0.654902, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s1m8h"]
+gradient = SubResource("Gradient_h2w2f")
+fill_from = Vector2(0.0042735, 1)
+
+[node name="LevelSelect" type="Node3D" node_paths=PackedStringArray("grid")]
+script = ExtResource("1_c1h5c")
+grid = NodePath("CanvasLayer/Control/Container/VBoxContainer/GridContainer")
+is_level = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_s1m8h")
+
+[node name="Container" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Container"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Container/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_q1y7b")
+theme_override_font_sizes/normal_font_size = 92
+bbcode_enabled = true
+text = "[center]Forest[/center]"
+fit_content = true
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 450
+theme_override_constants/v_separation = 250
+columns = 3

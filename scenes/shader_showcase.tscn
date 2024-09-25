@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbr0sj8bc4x4j"]
+
+[ext_resource type="Shader" uid="uid://finlaovy5h5y" path="res://assets/shaders/blip.tres" id="1_6xn4i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8160g"]
+albedo_color = Color(0.226707, 0.226707, 0.226707, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ouban"]
+render_priority = 0
+shader = ExtResource("1_6xn4i")
+shader_parameter/ColorParameter = Color(0.828739, 0.590962, 0.488088, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ux4o8"]
+
+[node name="Showroom" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(12.7121, 0, 0, 0, 1, 0, 0, 0, 12.7121, 0, -0.019043, 0)
+material_override = SubResource("StandardMaterial3D_8160g")
+size = Vector3(1, 0.2, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251548, 0.713791, -0.0127642)
+material_override = SubResource("ShaderMaterial_ouban")
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_ux4o8")

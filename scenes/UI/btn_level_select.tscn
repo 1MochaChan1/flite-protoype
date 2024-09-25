@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://mtfokjng3nyk"]
+
+[ext_resource type="Theme" uid="uid://b30ij2pcn7obr" path="res://scenes/UI/btn_level_select_theme.tres" id="1_6l4n6"]
+[ext_resource type="Script" path="res://scripts/btn_level_select.gd" id="2_ikx5m"]
+[ext_resource type="Texture2D" uid="uid://8p8ipxvwhayy" path="res://assets/ui_resources/Star 1.svg" id="3_b5tjg"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 170.0
+offset_bottom = 170.0
+script = ExtResource("2_ikx5m")
+
+[node name="LevelSelectButton" type="Button" parent="." groups=["LevelButtons"]]
+layout_mode = 0
+size_flags_horizontal = 4
+theme = ExtResource("1_6l4n6")
+text = "1"
+
+[node name="Star1" type="Sprite2D" parent="LevelSelectButton"]
+position = Vector2(26, 122)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_b5tjg")
+
+[node name="Star2" type="Sprite2D" parent="LevelSelectButton"]
+position = Vector2(136, 121)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_b5tjg")
+
+[node name="Star3" type="Sprite2D" parent="LevelSelectButton"]
+position = Vector2(81, 136)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_b5tjg")

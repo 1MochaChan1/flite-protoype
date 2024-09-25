@@ -1,17 +1,132 @@
-[gd_scene load_steps=10 format=3 uid="uid://4ype6ki7v36b"]
+[gd_scene load_steps=34 format=3 uid="uid://3ctvyck6tu8u"]
 
-[ext_resource type="Script" path="res://scripts/level_forest.gd" id="1_r0yo1"]
-[ext_resource type="PackedScene" uid="uid://d2qw34xxg7hpk" path="res://scenes/UI/hud.tscn" id="2_jik75"]
-[ext_resource type="PackedScene" uid="uid://dg16p7splw1do" path="res://scenes/UI/end_game_menu.tscn" id="3_uv0b1"]
-[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="3_yj7k3"]
-[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/drop_point.tscn" id="4_jyyyn"]
-[ext_resource type="PackedScene" uid="uid://cxnihajd0l6t5" path="res://scenes/UI/pause_menu.tscn" id="4_likam"]
-[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/plane.tscn" id="5_nqnwq"]
-[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/third_person_camera.tscn" id="6_cjee8"]
-[ext_resource type="PackedScene" uid="uid://dp6b74emxjud3" path="res://scenes/Lighting/forest_level_lighting.tscn" id="7_gskyk"]
+[ext_resource type="Script" path="res://scripts/level_forest.gd" id="1_eneiy"]
+[ext_resource type="PackedScene" uid="uid://d2qw34xxg7hpk" path="res://scenes/UI/hud.tscn" id="2_pytm4"]
+[ext_resource type="PackedScene" uid="uid://dg16p7splw1do" path="res://scenes/UI/end_game_menu.tscn" id="3_aqtp8"]
+[ext_resource type="PackedScene" uid="uid://cxnihajd0l6t5" path="res://scenes/UI/pause_menu.tscn" id="4_jek3g"]
+[ext_resource type="PackedScene" uid="uid://b3qmxxr8mrplw" path="res://blender_meshes/terrain.tscn" id="5_av05d"]
+[ext_resource type="PackedScene" uid="uid://cnc7v3r2jna58" path="res://scenes/Core/drop_point.tscn" id="6_b7rdd"]
+[ext_resource type="PackedScene" uid="uid://c0s6fuhehlqdg" path="res://scenes/Core/plane.tscn" id="7_wrtuk"]
+[ext_resource type="PackedScene" uid="uid://difd4nyo42xes" path="res://scenes/Core/third_person_camera.tscn" id="8_76a8s"]
+[ext_resource type="Texture2D" uid="uid://b1dy636n7n5sr" path="res://assets/Anime Sky Texture.jpeg" id="9_2kum5"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="10_3hluk"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_i7d78"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="12_m1xiq"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="13_fds4e"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="14_dwwqm"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="15_jlv74"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="16_34t1a"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/offset_scale.gd" id="17_5rwmm"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="18_e33tv"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="19_kxrqu"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="20_gff2d"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/path_shape.gd" id="21_jk5c3"]
 
-[node name="level_forest3" type="Node3D" node_paths=PackedStringArray("game_end_menu", "pause_menu", "hud", "drops")]
-script = ExtResource("1_r0yo1")
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6nhew"]
+panorama = ExtResource("9_2kum5")
+
+[sub_resource type="Sky" id="Sky_6mfjr"]
+sky_material = SubResource("PanoramaSkyMaterial_6nhew")
+
+[sub_resource type="Environment" id="Environment_jse1g"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_6mfjr")
+ambient_light_color = Color(0.212727, 0.274445, 0.331882, 1)
+tonemap_mode = 3
+tonemap_white = 0.5
+ssao_enabled = true
+glow_enabled = true
+glow_bloom = 0.15
+fog_enabled = true
+fog_density = 0.0005
+fog_aerial_perspective = 1.0
+adjustment_enabled = true
+adjustment_brightness = 1.25
+adjustment_contrast = 0.75
+adjustment_saturation = 1.5
+
+[sub_resource type="Resource" id="Resource_aaydr"]
+script = ExtResource("13_fds4e")
+amount = 500
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_7uryo"]
+script = ExtResource("14_dwwqm")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(1, 1, 1)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_toeix"]
+script = ExtResource("15_jlv74")
+iterations = 3
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+use_computeshader = true
+enabled = false
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_pcakd"]
+script = ExtResource("16_34t1a")
+ray_direction = Vector3(0, -1, 0)
+ray_length = 1000.0
+ray_offset = 5.0
+remove_points_on_miss = false
+align_with_collision_normal = false
+max_slope = 90.0
+collision_mask = 2
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_mik8g"]
+script = ExtResource("17_5rwmm")
+operation = 1
+scale = Vector3(8, 8, 8)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_16mnx"]
+script = ExtResource("11_i7d78")
+stack = Array[ExtResource("12_m1xiq")]([SubResource("Resource_aaydr"), SubResource("Resource_7uryo"), SubResource("Resource_toeix"), SubResource("Resource_pcakd"), SubResource("Resource_mik8g")])
+
+[sub_resource type="Resource" id="Resource_8124x"]
+script = ExtResource("20_gff2d")
+size = Vector3(3816.71, 280.735, 3763.33)
+
+[sub_resource type="Curve3D" id="Curve3D_uknxi"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -513.006, 0, -1403.22, 0, 0, 0, 0, 0, 0, 45.4389, 0, -1360.4, 0, 0, 0, 0, 0, 0, 951.186, 0, -1426.23, 0, 0, 0, 0, 0, 0, 953.1, 0, -882.517, 0, 0, 0, 0, 0, 0, 784.526, 0, -654.598, 0, 0, 0, 0, 0, 0, 61.654, 0, -561.222, 0, 0, 0, 0, 0, 0, -425.991, 0, -1019.71, 0, 0, 0, 0, 0, 0, -586.4, 0, -1013.29),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="Resource" id="Resource_mq3rq"]
+script = ExtResource("21_jk5c3")
+closed = true
+thickness = 0.0
+curve = SubResource("Curve3D_uknxi")
+
+[node name="LevelForest" type="Node3D" node_paths=PackedStringArray("game_end_menu", "pause_menu", "hud", "drops")]
+script = ExtResource("1_eneiy")
 scene_name = "level_forest3"
 game_end_menu = NodePath("End Game Menu")
 pause_menu = NodePath("Pause Menu")
@@ -21,35 +136,60 @@ one_star = 50
 two_star = 40
 three_star = 20
 
-[node name="Hud" parent="." instance=ExtResource("2_jik75")]
+[node name="Hud" parent="." instance=ExtResource("2_pytm4")]
 
-[node name="End Game Menu" parent="." instance=ExtResource("3_uv0b1")]
+[node name="End Game Menu" parent="." instance=ExtResource("3_aqtp8")]
 
-[node name="Pause Menu" parent="." instance=ExtResource("4_likam")]
+[node name="Pause Menu" parent="." instance=ExtResource("4_jek3g")]
+process_mode = 3
 
-[node name="Terrain" parent="." instance=ExtResource("3_yj7k3")]
+[node name="Terrain" parent="." instance=ExtResource("5_av05d")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 
 [node name="Drops" type="Node" parent="."]
 
-[node name="DropPoint" parent="Drops" instance=ExtResource("4_jyyyn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 195.623, 49.6178, -186.627)
+[node name="DropPoint3" parent="Drops" instance=ExtResource("6_b7rdd")]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, 171.147, 168.41, 305.62)
 
-[node name="DropPoint2" parent="Drops" instance=ExtResource("4_jyyyn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 225.171, 49.6179, -123.596)
+[node name="DropPoint4" parent="Drops" instance=ExtResource("6_b7rdd")]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, 696.901, 159.462, -1446.28)
 
-[node name="DropPoint3" parent="Drops" instance=ExtResource("4_jyyyn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 215.661, 49.6178, -28.722)
+[node name="DropPoint5" parent="Drops" instance=ExtResource("6_b7rdd")]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -1203.72, 503.094, -1098.86)
 
-[node name="Plane" parent="." instance=ExtResource("5_nqnwq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139.349, 102.03, 13.7652)
+[node name="Plane" parent="." instance=ExtResource("7_wrtuk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1954.21, 870.967, -1501.77)
 
-[node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("6_cjee8")]
+[node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("8_76a8s")]
 follow_target = NodePath("../Plane")
 
-[node name="WorldEnvironment" parent="." instance=ExtResource("7_gskyk")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jse1g")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.425779, -0.896668, 0.121234, 0, 0.133986, 0.990983, -0.904827, 0.42194, -0.0570485, 0, 229.664, 0)
 light_energy = 0.8
 shadow_enabled = true
+
+[node name="ProtonScatter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45807, 152.969, 55.9415)
+script = ExtResource("10_3hluk")
+render_mode = 1
+modifier_stack = SubResource("Resource_16mnx")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(15, 15, 15)
+
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("18_e33tv")
+path = "res://blender_meshes/tree_1.tscn"
+
+[node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -20.0554, -70.5354, -25.2723)
+script = ExtResource("19_kxrqu")
+shape = SubResource("Resource_8124x")
+
+[node name="ScatterShape2" type="Node3D" parent="ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -20.0554, -70.5354, -25.2723)
+script = ExtResource("19_kxrqu")
+negative = true
+shape = SubResource("Resource_mq3rq")
