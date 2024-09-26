@@ -5,3 +5,5 @@ func _input(_event):
 		get_viewport().set_input_as_handled()
 		if(get_tree().paused):
 			get_tree().paused = false
+			get_parent().visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

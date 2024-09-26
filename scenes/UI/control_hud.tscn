@@ -2,42 +2,20 @@
 
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_jf8ob"]
 
-[node name="Control" type="Control"]
+[node name="Control_Hud" type="Control"]
 layout_mode = 3
-anchors_preset = 15
+anchor_top = 0.386
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -0.128006
 grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Velocity" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -109.0
-offset_top = 23.0
-offset_right = -39.0
-offset_bottom = 46.0
-grow_horizontal = 0
-text = "Velocity: "
-
-[node name="Messages" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -123.0
-offset_top = 51.0
-offset_right = -39.0
-offset_bottom = 74.0
-grow_horizontal = 0
-text = "Messages: "
+grow_vertical = 0
 
 [node name="Lookstick" parent="." instance=ExtResource("1_jf8ob")]
 layout_mode = 1
 offset_left = 853.0
 offset_right = 1153.0
+joystick_mode = 1
 visibility_mode = 1
 
 [node name="Movestick" parent="." instance=ExtResource("1_jf8ob")]
@@ -45,6 +23,7 @@ layout_mode = 1
 offset_top = -457.0
 offset_right = 423.0
 pivot_offset = Vector2(215, 230)
+clampzone_size = 100.0
 joystick_mode = 1
 visibility_mode = 1
 

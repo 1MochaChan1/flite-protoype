@@ -46,7 +46,7 @@ adjustment_brightness = 1.25
 adjustment_contrast = 0.75
 adjustment_saturation = 1.5
 
-[sub_resource type="Resource" id="Resource_k715d"]
+[sub_resource type="Resource" id="Resource_hkdpw"]
 script = ExtResource("13_jwg2v")
 amount = 500
 enabled = true
@@ -55,7 +55,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_6myvj"]
+[sub_resource type="Resource" id="Resource_wfc0d"]
 script = ExtResource("14_0aiqn")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(0, 0, 0)
@@ -66,7 +66,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_2t8uc"]
+[sub_resource type="Resource" id="Resource_ap4gh"]
 script = ExtResource("15_0x6cu")
 iterations = 3
 offset_step = 0.2
@@ -78,7 +78,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_73h2m"]
+[sub_resource type="Resource" id="Resource_2ltcp"]
 script = ExtResource("16_3s2ff")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 1000.0
@@ -94,7 +94,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_c0c71"]
+[sub_resource type="Resource" id="Resource_juyla"]
 script = ExtResource("17_4faj5")
 operation = 1
 scale = Vector3(10, 10, 8)
@@ -104,9 +104,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_w2u4w"]
+[sub_resource type="Resource" id="Resource_r8gd8"]
 script = ExtResource("11_xvour")
-stack = Array[ExtResource("12_ypq3h")]([SubResource("Resource_k715d"), SubResource("Resource_6myvj"), SubResource("Resource_2t8uc"), SubResource("Resource_73h2m"), SubResource("Resource_c0c71")])
+stack = Array[ExtResource("12_ypq3h")]([SubResource("Resource_hkdpw"), SubResource("Resource_wfc0d"), SubResource("Resource_ap4gh"), SubResource("Resource_2ltcp"), SubResource("Resource_juyla")])
 
 [sub_resource type="Resource" id="Resource_8124x"]
 script = ExtResource("20_dq6y6")
@@ -175,7 +175,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45807, 152.969, 55.9415)
 script = ExtResource("10_xj57x")
 render_mode = 1
-modifier_stack = SubResource("Resource_w2u4w")
+modifier_stack = SubResource("Resource_r8gd8")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 

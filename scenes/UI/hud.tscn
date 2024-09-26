@@ -1,10 +1,75 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2qw34xxg7hpk"]
+[gd_scene load_steps=7 format=3 uid="uid://d2qw34xxg7hpk"]
 
 [ext_resource type="PackedScene" uid="uid://bcep5k62bj3f7" path="res://scenes/UI/control_hud.tscn" id="1_1ge7x"]
+[ext_resource type="Texture2D" uid="uid://bbxe3nspituuk" path="res://assets/Messages.svg" id="1_eehqw"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_jun3x"]
+[ext_resource type="Theme" uid="uid://btbhnlwtvqt6x" path="res://scenes/UI/btn_menu_theme.tres" id="2_qfclh"]
+[ext_resource type="Texture2D" uid="uid://cgrs6f6lcowd0" path="res://assets/Pause.svg" id="3_wcu4v"]
+[ext_resource type="Texture2D" uid="uid://6q512leo6geo" path="res://assets/Timer.svg" id="4_i4y8s"]
 
 [node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_jun3x")
 
-[node name="Control" parent="." instance=ExtResource("1_1ge7x")]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 93.0
+grow_horizontal = 2
 
-[editable path="Control"]
-[editable path="Control/Movestick"]
+[node name="Top Hud" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 25.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_constants/separation = 300
+alignment = 1
+
+[node name="Message" type="HBoxContainer" parent="Control/Top Hud"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="TextureRect" type="TextureRect" parent="Control/Top Hud/Message"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_eehqw")
+stretch_mode = 2
+
+[node name="MessageLabel" type="Label" parent="Control/Top Hud/Message"]
+layout_mode = 2
+theme = ExtResource("2_qfclh")
+theme_override_font_sizes/font_size = 72
+text = "2/3"
+
+[node name="Pause" type="HBoxContainer" parent="Control/Top Hud"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="TextureButton" type="TextureButton" parent="Control/Top Hud/Pause"]
+layout_mode = 2
+texture_normal = ExtResource("3_wcu4v")
+
+[node name="Timer" type="HBoxContainer" parent="Control/Top Hud"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="TextureRect" type="TextureRect" parent="Control/Top Hud/Timer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_i4y8s")
+stretch_mode = 2
+
+[node name="TimerLabel" type="Label" parent="Control/Top Hud/Timer"]
+layout_mode = 2
+theme = ExtResource("2_qfclh")
+theme_override_font_sizes/font_size = 72
+text = "00:21"
+
+[node name="ControlHud" parent="." instance=ExtResource("1_1ge7x")]
+
+[editable path="ControlHud"]
+[editable path="ControlHud/Movestick"]
