@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dg16p7splw1do"]
 
 [ext_resource type="Script" path="res://scripts/end_game_menu.gd" id="1_7owcm"]
-[ext_resource type="Theme" uid="uid://btbhnlwtvqt6x" path="res://scenes/UI/btn_menu_theme.tres" id="2_6g4hr"]
+[ext_resource type="PackedScene" uid="uid://bjlkqktsy2o0h" path="res://scenes/UI/btn_menu.tscn" id="2_skt7s"]
 
 [sub_resource type="Gradient" id="Gradient_u01uq"]
 colors = PackedColorArray(0.270222, 0.270222, 0.270222, 0.74902, 0, 0, 0, 0.462745)
@@ -34,37 +34,26 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_nhp7w")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 2
-offset_left = 410.5
-offset_top = 236.0
-offset_right = 741.5
-offset_bottom = 516.0
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -145.5
+offset_right = 145.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Next Level" type="Button" parent="Control/VBoxContainer"]
+[node name="Next Level" parent="Control/VBoxContainer" instance=ExtResource("2_skt7s")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("2_6g4hr")
-theme_override_font_sizes/font_size = 72
 text = "Next Level"
-flat = true
 
-[node name="Restart" type="Button" parent="Control/VBoxContainer"]
+[node name="Restart" parent="Control/VBoxContainer" instance=ExtResource("2_skt7s")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("2_6g4hr")
-theme_override_font_sizes/font_size = 72
-text = "Restart Level"
+text = "Restart"
 
-[node name="Level Select" type="Button" parent="Control/VBoxContainer"]
+[node name="Level Select" parent="Control/VBoxContainer" instance=ExtResource("2_skt7s")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("2_6g4hr")
-theme_override_font_sizes/font_size = 72
 text = "Level Select"

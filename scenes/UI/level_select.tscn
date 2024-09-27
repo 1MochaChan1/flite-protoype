@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxn8jsewa66nw"]
+[gd_scene load_steps=6 format=3 uid="uid://dxn8jsewa66nw"]
 
 [ext_resource type="Script" path="res://scripts/level_select.gd" id="1_c1h5c"]
 [ext_resource type="Theme" uid="uid://b30ij2pcn7obr" path="res://scenes/UI/btn_level_select_theme.tres" id="2_q1y7b"]
+[ext_resource type="Texture2D" uid="uid://bugewtruv5ram" path="res://assets/back.svg" id="3_femnr"]
 
 [sub_resource type="Gradient" id="Gradient_h2w2f"]
 colors = PackedColorArray(0.0279206, 0.258427, 0.365535, 1, 0.0862745, 0.47451, 0.654902, 1)
@@ -50,8 +51,19 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Container/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Container/VBoxContainer"]
 layout_mode = 2
+
+[node name="Back" type="TextureButton" parent="CanvasLayer/Control/Container/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_femnr")
+texture_pressed = ExtResource("3_femnr")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Container/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_q1y7b")
 theme_override_font_sizes/normal_font_size = 92
 bbcode_enabled = true
@@ -64,3 +76,5 @@ size_flags_vertical = 3
 theme_override_constants/h_separation = 450
 theme_override_constants/v_separation = 250
 columns = 3
+
+[connection signal="pressed" from="CanvasLayer/Control/Container/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]

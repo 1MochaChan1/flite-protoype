@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_6nkig"]
 [ext_resource type="Script" path="res://scripts/resume_node.gd" id="1_7yvvj"]
-[ext_resource type="Theme" uid="uid://btbhnlwtvqt6x" path="res://scenes/UI/btn_menu_theme.tres" id="1_b8txp"]
+[ext_resource type="PackedScene" uid="uid://bjlkqktsy2o0h" path="res://scenes/UI/btn_menu.tscn" id="2_mwasr"]
 
 [sub_resource type="Gradient" id="Gradient_u01uq"]
 colors = PackedColorArray(0.270222, 0.270222, 0.270222, 0.74902, 0, 0, 0, 0.462745)
@@ -48,29 +48,16 @@ grow_vertical = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Resume" type="Button" parent="Control/VBoxContainer"]
+[node name="Resume" parent="Control/VBoxContainer" instance=ExtResource("2_mwasr")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("1_b8txp")
-theme_override_font_sizes/font_size = 72
 text = "Resume"
-flat = true
 
-[node name="Restart" type="Button" parent="Control/VBoxContainer"]
+[node name="Restart" parent="Control/VBoxContainer" instance=ExtResource("2_mwasr")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("1_b8txp")
-theme_override_font_sizes/font_size = 72
-text = "Restart Level"
+text = "Restart"
 
-[node name="Level Select" type="Button" parent="Control/VBoxContainer"]
+[node name="Level Select" parent="Control/VBoxContainer" instance=ExtResource("2_mwasr")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("1_b8txp")
-theme_override_font_sizes/font_size = 72
 text = "Level Select"
 
 [node name="ResumeNode" type="Node" parent="."]

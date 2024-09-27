@@ -132,6 +132,7 @@ void light() {
 
 }
 "
+graph_offset = Vector2(-295.91, 106.607)
 modes/blend = 1
 modes/cull = 2
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_3eqqf")
@@ -139,7 +140,7 @@ nodes/fragment/2/position = Vector2(-1860, 20)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_hfjbg")
 nodes/fragment/3/position = Vector2(-1100, 240)
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_gvtk6")
-nodes/fragment/5/position = Vector2(140, -80)
+nodes/fragment/5/position = Vector2(0, 60)
 nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_7leew")
 nodes/fragment/6/position = Vector2(-1240, -120)
 nodes/fragment/7/node = SubResource("VisualShaderNodeTexture_0ipb5")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0s6fuhehlqdg"]
+[gd_scene load_steps=13 format=3 uid="uid://c0s6fuhehlqdg"]
 
 [ext_resource type="Script" path="res://scripts/plane_movement.gd" id="1_2nbnj"]
 [ext_resource type="ArrayMesh" uid="uid://dnh0m6roajbw3" path="res://blender_meshes/plane.tres" id="2_xtbjo"]
 [ext_resource type="Shader" path="res://assets/shaders/speed_lines.gdshader" id="3_3qcy0"]
+[ext_resource type="AudioStream" uid="uid://dnkt8wng8vsel" path="res://assets/audio/sfx/wind-13850.mp3" id="4_8q0r6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfdru"]
 size = Vector3(0.396667, 0.964798, 0.114502)
@@ -108,5 +109,10 @@ libraries = {
 "": SubResource("AnimationLibrary_8oilk")
 }
 autoplay = "fade_in_speed_lines"
+
+[node name="FliteSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_8q0r6")
+pitch_scale = 0.4
+bus = &"SFX"
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://w2b55xse083x"]
+
+[ext_resource type="Script" path="res://scripts/level_loader.gd" id="1_r62e0"]
+[ext_resource type="Theme" uid="uid://btbhnlwtvqt6x" path="res://scenes/UI/btn_menu_theme.tres" id="2_2h561"]
+[ext_resource type="AudioStream" uid="uid://bjqo4pgrctsik" path="res://assets/audio/sfx/melancholy-ui-chime-47804.mp3" id="2_jx2l3"]
+
+[sub_resource type="Gradient" id="Gradient_gu548"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_po0ab"]
+gradient = SubResource("Gradient_gu548")
+
+[node name="Control" type="Control" node_paths=PackedStringArray("loading_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r62e0")
+loading_bar = NodePath("MarginContainer/ProgressBar")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_po0ab")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jx2l3")
+autoplay = true
+bus = &"Ambience"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_right = 128
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_2h561")
+max_value = 1.0
+step = 0.0
+show_percentage = false

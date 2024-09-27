@@ -4,6 +4,7 @@ class_name LevelSelectButton extends Control
 @onready var star_2: Sprite2D = $LevelSelectButton/Star2
 @onready var star_3: Sprite2D = $LevelSelectButton/Star3
 @onready var btn: Button = $LevelSelectButton
+@onready var sfx_click: AudioStreamPlayer = $Click
 
 @export var level_name:String
 @export var level_no:int=0
@@ -48,3 +49,7 @@ func _display_three_star():
 	star_1.visible = true
 	star_2.visible = true
 	star_3.visible = true
+
+
+func _on_level_select_button_pressed() -> void:
+	sfx_click.play()

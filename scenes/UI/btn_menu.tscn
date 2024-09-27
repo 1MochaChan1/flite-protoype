@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjlkqktsy2o0h"]
+
+[ext_resource type="Theme" uid="uid://btbhnlwtvqt6x" path="res://scenes/UI/btn_menu_theme.tres" id="1_v7yqf"]
+[ext_resource type="Script" path="res://scripts/btn_menu.gd" id="2_y5gww"]
+[ext_resource type="AudioStream" uid="uid://bn1njy51fxk71" path="res://assets/audio/sfx/click.mp3" id="3_ytkv1"]
+
+[node name="Resume" type="Button"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_v7yqf")
+theme_override_font_sizes/font_size = 72
+text = "Button"
+flat = true
+script = ExtResource("2_y5gww")
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ytkv1")
+bus = &"Button"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

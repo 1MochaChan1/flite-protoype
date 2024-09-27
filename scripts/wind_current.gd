@@ -9,7 +9,6 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	print(body)
 	if ((body is Player) and not is_once):
 		is_once = true
 		body._move_in_wind_direction(wind_current_dir)

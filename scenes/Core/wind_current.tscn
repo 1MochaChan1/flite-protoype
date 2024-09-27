@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://5lyr5jh42q75"]
+
+[ext_resource type="Script" path="res://scripts/wind_current.gd" id="1_0yvyd"]
+[ext_resource type="Shader" uid="uid://4im0a1p5454d" path="res://assets/shaders/wind.tres" id="2_u0nwr"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wfhfe"]
+height = 56.6672
+radius = 16.8475
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l4asc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gyvar"]
+seamless = true
+noise = SubResource("FastNoiseLite_l4asc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4lu8"]
+render_priority = 0
+shader = ExtResource("2_u0nwr")
+shader_parameter/Intensity = 2.0
+shader_parameter/Direction = Vector2(0.5, 1)
+shader_parameter/ColorParameter = null
+shader_parameter/Texture = SubResource("NoiseTexture2D_gyvar")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_12jkq"]
+
+[node name="WindCurrent" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999954, -0.00959916, 0, 0.00959916, 0.999954, 0, 0, 0)
+collision_layer = 16
+script = ExtResource("1_0yvyd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_wfhfe")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0216522, 30.7059, -0.0236282)
+gizmo_extents = 9.59
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(34.3674, 0, 0, 0, 47.5313, 0, 0, 0, 34.3674, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_a4lu8")
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_12jkq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

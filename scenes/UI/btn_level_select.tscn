@@ -31,3 +31,7 @@ texture = ExtResource("3_b5tjg")
 position = Vector2(81, 136)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_b5tjg")
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="LevelSelectButton" to="." method="_on_level_select_button_pressed"]

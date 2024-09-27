@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbr0sj8bc4x4j"]
+[gd_scene load_steps=9 format=3 uid="uid://dbr0sj8bc4x4j"]
 
 [ext_resource type="Shader" uid="uid://finlaovy5h5y" path="res://assets/shaders/blip.tres" id="1_6xn4i"]
+[ext_resource type="Shader" uid="uid://4im0a1p5454d" path="res://assets/shaders/wind.tres" id="2_qjttl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8160g"]
 albedo_color = Color(0.226707, 0.226707, 0.226707, 1)
@@ -8,9 +9,22 @@ albedo_color = Color(0.226707, 0.226707, 0.226707, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ouban"]
 render_priority = 0
 shader = ExtResource("1_6xn4i")
-shader_parameter/ColorParameter = Color(0.828739, 0.590962, 0.488088, 1)
+shader_parameter/Color = null
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ux4o8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t85xt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gyvar"]
+seamless = true
+noise = SubResource("FastNoiseLite_t85xt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_06rgc"]
+render_priority = 0
+shader = ExtResource("2_qjttl")
+shader_parameter/Intensity = 2.0
+shader_parameter/ColorParameter = null
+shader_parameter/Texture = SubResource("NoiseTexture2D_gyvar")
 
 [node name="Showroom" type="Node3D"]
 
@@ -24,3 +38,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0251548, 0.713791, -0.01276
 material_override = SubResource("ShaderMaterial_ouban")
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_ux4o8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-8.74228e-08, -6.51643, 0, 2, -2.84842e-07, 0, 0, 0, 2, -2.57831, 2.23819, -0.0127642)
+material_override = SubResource("ShaderMaterial_06rgc")
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_ux4o8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.948915, 0.315533, 0, -0.315533, 0.948915, 12.461, -0.64664, -2.38419e-07)

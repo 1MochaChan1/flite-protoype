@@ -1,11 +1,12 @@
 #class_name GameManager
 extends Node
-
+const LOADER_PATH = "res://scenes/UI/loading.tscn"
 # Can change scene
 # Responsible for saving game files
 var _level:PackedScene
 var curr_level:CustomScene
-
+# This will be used by the loader scene.
+var next_level_path:String
 static var save_game:SaveGame 
 
 func _ready() -> void:

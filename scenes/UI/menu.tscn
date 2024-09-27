@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://8e10kswewuwn"]
+[gd_scene load_steps=12 format=3 uid="uid://8e10kswewuwn"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_nboci"]
 [ext_resource type="Texture2D" uid="uid://b7xxh6dgt1hiv" path="res://assets/menu.png" id="2_gpfh2"]
 [ext_resource type="FontFile" uid="uid://by0yudkyajgs3" path="res://assets/ui_resources/ReenieBeanie-Regular.ttf" id="3_3ywp2"]
-[ext_resource type="Theme" uid="uid://btbhnlwtvqt6x" path="res://scenes/UI/btn_menu_theme.tres" id="3_bp7bp"]
+[ext_resource type="PackedScene" uid="uid://bjlkqktsy2o0h" path="res://scenes/UI/btn_menu.tscn" id="3_4wrps"]
 [ext_resource type="StyleBox" uid="uid://dxy2ijd0ytxqb" path="res://scenes/UI/btn_menu.stylebox" id="4_g7it0"]
+[ext_resource type="AudioStream" uid="uid://dcw7bcwrtrl8a" path="res://assets/audio/ambience/wind-in-trees-117477.mp3" id="6_c1oim"]
 
 [sub_resource type="Gradient" id="Gradient_hbqto"]
 colors = PackedColorArray(0, 0, 0, 0.498039, 1, 1, 1, 1)
@@ -55,9 +56,10 @@ Button/styles/hover_pressed = ExtResource("4_g7it0")
 Button/styles/normal = ExtResource("4_g7it0")
 Button/styles/pressed = ExtResource("4_g7it0")
 
-[node name="Menu" type="Node3D"]
+[node name="Menu" type="Node3D" node_paths=PackedStringArray("ambience_bg")]
 script = ExtResource("1_nboci")
 is_level = false
+ambience_bg = NodePath("Audio")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -100,25 +102,32 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 alignment = 2
 
-[node name="Play" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+[node name="Play" parent="CanvasLayer/Control/MarginContainer/VBoxContainer" instance=ExtResource("3_4wrps")]
 layout_mode = 2
 size_flags_horizontal = 8
-theme = ExtResource("3_bp7bp")
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 128
 text = "Play"
 
 [node name="Options" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 0
 theme = SubResource("Theme_3m0b0")
 text = "Options"
 
-[node name="Quit" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+[node name="Quit" parent="CanvasLayer/Control/MarginContainer/VBoxContainer" instance=ExtResource("3_4wrps")]
 layout_mode = 2
 size_flags_horizontal = 8
-theme = ExtResource("3_bp7bp")
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 128
 text = "Quit"
-flat = true
 
-[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_c1oim")
+autoplay = true
+bus = &"Ambience"
+
+[connection signal="custom_pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="custom_pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

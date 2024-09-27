@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnc7v3r2jna58"]
+[gd_scene load_steps=7 format=3 uid="uid://cnc7v3r2jna58"]
 
 [ext_resource type="Script" path="res://scripts/drop_point.gd" id="1_k8128"]
 [ext_resource type="Shader" uid="uid://finlaovy5h5y" path="res://assets/shaders/blip.tres" id="2_gdy01"]
+[ext_resource type="AudioStream" uid="uid://bg0omhe7nbpl0" path="res://assets/audio/sfx/effect_notify-84408.mp3" id="3_0ltp0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ir20x"]
 render_priority = 0
@@ -28,4 +29,9 @@ collision_layer = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CylinderShape3D_fu4lh")
 
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0ltp0")
+bus = &"SFX"
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="finished" from="Pickup" to="." method="_sfx_finished"]

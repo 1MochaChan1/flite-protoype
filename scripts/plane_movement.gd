@@ -31,6 +31,7 @@ const _GRAVITY = 12
 # -- Nodes -- #
 @onready var _mesh_container = $MeshContainer
 @onready var speedlines: ColorRect = $Speedlines
+@onready var sfx_flying: AudioStreamPlayer3D = $FliteSound
 
 # -- Variables -- #
 var _fwd
@@ -42,7 +43,6 @@ var _current_speed: float = 0.0
 var is_in_control: bool = true
 var _rise_meter: float = 0.0
 var _accelerated_speed: float
-#var _speedline_shader_transparency: float
 
 # -- Signals -- #
 signal crashed
@@ -50,6 +50,7 @@ signal crashed
 ## -- Ready Function -- ##
 func _ready():
 	# Initialize speed to minimum on start.
+	sfx_flying.play()
 	_current_speed = MIN_SPEED
 
 
@@ -61,7 +62,7 @@ func _physics_process(delta):
 	_handle_physics(delta)
 	_handle_rotation(delta)
 	_handle_animation()
-
+	_handle_sound()
 
 ## -- Input Handling -- ##
 func _handle_input():
@@ -132,6 +133,12 @@ func _handle_animation():
 	_tween.tween_property(_mesh_container, "rotation_degrees:z", -_yaw_input * 45, 0.5)
 	_tween.tween_property(self, 'rotation_degrees:x', _pitch_input * max_pitch_angle, 0.75)
 	_tween.tween_property(self, 'rotation_degrees:y', _yaw, 0.2).as_relative()
+
+
+func _handle_sound():
+	sfx_flying.pitch_scale = lerp(
+		sfx_flying.pitch_scale, (
+			get_normalized_curr_speed() * 2) + .4, .2)
 
 
 # -- Helper Functions -- #

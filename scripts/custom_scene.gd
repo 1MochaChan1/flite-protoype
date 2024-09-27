@@ -17,6 +17,10 @@ class_name CustomScene extends Node3D
 ## how many seconds for 3 star
 @export var three_star:int = 60
 
+@export_category("Sounds")
+@export var ambience_bg:AudioStreamPlayer
+
+
 var total_messages:int
 var _curr_message:int=0
 var player:CharacterBody3D
@@ -32,6 +36,7 @@ var p_btn_restart:Button
 var p_btn_level_select:Button
 var p_btn_resume:Button
 
+
 # These will be called by scenes or the scene_managers (only).
 signal call_scene_change(next_scene:StringName)
 signal call_scene_restart()
@@ -40,6 +45,7 @@ signal call_scene_restart()
 ## NOTE: Edit for having the minimal functionality such as a Main Menu.
 func _ready():
 	get_tree().paused = false
+	if(ambience_bg): ambience_bg.play()
 	if(is_level):
 		total_messages = drops.get_child_count()
 		for drop in drops.get_children():
@@ -69,13 +75,13 @@ func _ready():
 				camera.v_joystick = hud.look_stick
 		
 		
-		game_end_menu.btn_level_select.pressed.connect(go_to_level_select)
-		game_end_menu.btn_restart.pressed.connect(restart_level)
-		game_end_menu.btn_next_level.pressed.connect(go_to_next_level)
+		game_end_menu.btn_level_select.custom_pressed.connect(go_to_level_select)
+		game_end_menu.btn_restart.custom_pressed.connect(restart_level)
+		game_end_menu.btn_next_level.custom_pressed.connect(go_to_next_level)
 		
-		pause_menu.btn_level_select.pressed.connect(go_to_level_select)
-		pause_menu.btn_restart.pressed.connect(restart_level)
-		pause_menu.btn_resume.pressed.connect(resume_game)
+		pause_menu.btn_level_select.custom_pressed.connect(go_to_level_select)
+		pause_menu.btn_restart.custom_pressed.connect(restart_level)
+		pause_menu.btn_resume.custom_pressed.connect(resume_game)
 		
 		hud.pause_btn.pressed.connect(pause_game)
 		
@@ -153,12 +159,13 @@ func on_level_fail():
 	game_end_menu.btn_next_level.visible=false
 
 
+
+
 ####### Menu Visibility Methods 👁 #######
 func _input(event: InputEvent):
 	if(Input.is_action_just_pressed("ui_cancel")\
 	and not game_end_menu.visible and is_level):
 		pause_game()
-
 
 func pause_game():
 	if(get_tree().paused): return
@@ -177,11 +184,12 @@ func go_to_next_level():
 	var _lvl_number =int(str(scene_name)[-1]) + 1
 	#TODO: Make this dynamic with a next_level variable
 	var next_level = "res://scenes/Levels/level_forest%s.tscn" %str(_lvl_number)
-	if(ResourceLoader.exists(next_level)):
-		get_tree().change_scene_to_packed(
-			load(next_level))
-	else:
-		printerr("Path to next level is invalid")
+	_change_level_with_loader(next_level)
+	#if(ResourceLoader.exists(next_level)):
+		#get_tree().change_scene_to_packed(
+			#load(next_level))
+	#else:
+		#printerr("Path to next level is invalid")
 	#call_scene_change.emit(next_level)
 
 func go_to_main_menu():
@@ -195,11 +203,21 @@ func go_to_level_select():
 
 func go_to_selected_level(level_name:String):
 	var _level = "res://scenes/Levels/%s.tscn" % level_name
-	get_tree().change_scene_to_packed(
-		load(_level))
+	_change_level_with_loader(_level)
+	#get_tree().change_scene_to_packed(
+		#load(_level))
+
 
 
 func restart_level():
 	var _scene = "res://scenes/Levels/%s.tscn" % scene_name
 	get_tree().change_scene_to_packed(
 		load(_scene))
+
+func _change_level_with_loader(scene_path):
+	GameManager.next_level_path = scene_path
+	if(ResourceLoader.exists(scene_path)):
+		get_tree().change_scene_to_packed(
+			load(GameManager.LOADER_PATH))
+	else:
+		printerr("Path to next level is invalid")

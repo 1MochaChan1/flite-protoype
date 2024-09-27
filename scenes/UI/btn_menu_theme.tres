@@ -1,7 +1,25 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://btbhnlwtvqt6x"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://btbhnlwtvqt6x"]
 
 [ext_resource type="FontFile" uid="uid://by0yudkyajgs3" path="res://assets/ui_resources/ReenieBeanie-Regular.ttf" id="1_dsbi6"]
 [ext_resource type="StyleBox" uid="uid://dxy2ijd0ytxqb" path="res://scenes/UI/btn_menu.stylebox" id="2_txveo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysasv"]
+bg_color = Color(0.207843, 0.360784, 0.498039, 0.482353)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vk4iy"]
+bg_color = Color(0.201597, 0.50735, 0.843594, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
 
 [resource]
 default_font = ExtResource("1_dsbi6")
@@ -16,6 +34,8 @@ Button/styles/hover = ExtResource("2_txveo")
 Button/styles/hover_pressed = ExtResource("2_txveo")
 Button/styles/normal = ExtResource("2_txveo")
 Button/styles/pressed = ExtResource("2_txveo")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_ysasv")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_vk4iy")
 RichTextLabel/font_sizes/bold_font_size = 32
 RichTextLabel/font_sizes/bold_italics_font_size = 32
 RichTextLabel/font_sizes/italics_font_size = 32
